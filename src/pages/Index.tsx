@@ -539,15 +539,115 @@ const Contacts = () => (
   </section>
 );
 
+// ─── EMAIL SUBSCRIBE ──────────────────────────────────────────────────────────
+const EmailSubscribe = () => {
+  const [email, setEmail] = useState("");
+  const [done, setDone] = useState(false);
+  return (
+    <section className="py-16 px-6 border-t border-gold/10" style={{ background: "hsl(240,22%,3%)" }}>
+      <div className="max-w-xl mx-auto text-center">
+        <p className="font-golos text-xs tracking-[0.4em] uppercase text-gold/45 mb-3">✦ Рассылка ✦</p>
+        <h3 className="font-cormorant text-3xl font-light mb-2">Расклад недели — бесплатно</h3>
+        <p className="font-golos text-xs text-foreground/40 mb-6 leading-relaxed">
+          Каждую неделю: расклад на 7 дней, карта-совет и аффирмация.<br />Только по делу, без спама. Отписаться в 1 клик.
+        </p>
+        {done ? (
+          <p className="font-cormorant text-xl italic text-gold animate-fade-in">✦ Вы подписаны. Первый расклад придёт в воскресенье ✦</p>
+        ) : (
+          <form onSubmit={e => { e.preventDefault(); if (email) setDone(true); }}
+            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
+              placeholder="your@email.com"
+              className="flex-1 bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-golos text-sm text-foreground placeholder:text-foreground/25 transition-colors rounded-sm" />
+            <button type="submit"
+              className="font-golos text-xs px-6 py-3 bg-gold text-background hover:bg-gold/85 transition-all rounded-sm tracking-widest uppercase font-medium whitespace-nowrap">
+              Подписаться
+            </button>
+          </form>
+        )}
+        <p className="font-golos text-xs text-foreground/20 mt-3">
+          Нажимая «Подписаться», вы соглашаетесь с{" "}
+          <a href="#privacy" className="underline hover:text-foreground/40 transition-colors">политикой конфиденциальности</a>
+        </p>
+      </div>
+    </section>
+  );
+};
+
+// ─── LEGAL MODALS ─────────────────────────────────────────────────────────────
+const LegalModal = ({ type, onClose }: { type: "privacy" | "offer"; onClose: () => void }) => {
+  const isPrivacy = type === "privacy";
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+      <div className="relative z-10 max-w-lg w-full mystical-card rounded-sm p-8 max-h-[80vh] overflow-y-auto"
+        onClick={e => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute top-4 right-4 text-foreground/40 hover:text-foreground transition-colors">
+          <Icon name="X" size={18} />
+        </button>
+        <h3 className="font-cormorant text-2xl gold-text mb-4">
+          {isPrivacy ? "Политика конфиденциальности" : "Публичная оферта"}
+        </h3>
+        <Divider slim />
+        {isPrivacy ? (
+          <div className="font-golos text-xs text-foreground/55 leading-relaxed space-y-3 mt-4">
+            <p><strong className="text-foreground/70">Сбор данных.</strong> Мы собираем только имя и email, которые вы добровольно указываете при оформлении заказа или подписки.</p>
+            <p><strong className="text-foreground/70">Использование.</strong> Данные используются исключительно для доставки PDF-сертификата и рассылки (при подписке). Третьим лицам не передаются.</p>
+            <p><strong className="text-foreground/70">Хранение.</strong> Данные хранятся на защищённых серверах. Вы можете запросить удаление в любой момент, написав нам.</p>
+            <p><strong className="text-foreground/70">Рассылка.</strong> Отписаться можно в один клик по ссылке в любом письме.</p>
+            <p><strong className="text-foreground/70">Контакт.</strong> По вопросам конфиденциальности: @arcana_taro в Telegram.</p>
+          </div>
+        ) : (
+          <div className="font-golos text-xs text-foreground/55 leading-relaxed space-y-3 mt-4">
+            <p><strong className="text-foreground/70">Предмет.</strong> Исполнитель оказывает услуги по составлению Таро-раскладов и подготовке аналитических PDF-материалов в развлекательных целях.</p>
+            <p><strong className="text-foreground/70">Характер услуг.</strong> Все расклады носят исключительно развлекательный и рекомендательный характер. Исполнитель не даёт гарантий реализации каких-либо событий.</p>
+            <p><strong className="text-foreground/70">Оплата.</strong> Услуга считается оказанной после доставки PDF-сертификата на email клиента.</p>
+            <p><strong className="text-foreground/70">Возврат.</strong> Возврат осуществляется в течение 24 часов с момента оплаты, если PDF не был открыт. Для возврата напишите в Telegram.</p>
+            <p><strong className="text-foreground/70">Ограничение ответственности.</strong> Исполнитель не несёт ответственности за решения, принятые клиентом на основании расклада.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // ─── FOOTER ───────────────────────────────────────────────────────────────────
-const Footer = () => (
-  <footer className="py-8 px-6 border-t border-gold/10 text-center" style={{ background: "hsl(240,22%,3%)" }}>
-    <p className="font-cormorant text-xl gold-text font-light tracking-[0.2em]">✦ ARCANA</p>
-    <p className="font-golos text-xs text-foreground/20 mt-2 tracking-wider">
-      © {new Date().getFullYear()} · Все права защищены · Для лиц 18+ · Услуги носят развлекательный характер
-    </p>
-  </footer>
-);
+const Footer = () => {
+  const [modal, setModal] = useState<"privacy" | "offer" | null>(null);
+  return (
+    <>
+      <footer className="py-10 px-6 border-t border-gold/10" style={{ background: "hsl(240,22%,3%)" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+            <p className="font-cormorant text-xl gold-text font-light tracking-[0.2em]">✦ ARCANA</p>
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+              <button onClick={() => setModal("privacy")}
+                className="font-golos text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider underline-offset-2">
+                Политика конфиденциальности
+              </button>
+              <button onClick={() => setModal("offer")}
+                className="font-golos text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider underline-offset-2">
+                Публичная оферта
+              </button>
+              <a href="https://t.me/arcana_taro" target="_blank" rel="noopener noreferrer"
+                className="font-golos text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider flex items-center gap-1">
+                <Icon name="Send" size={11} />
+                Telegram-канал
+              </a>
+            </div>
+          </div>
+          <Divider slim />
+          <p className="font-golos text-xs text-foreground/20 text-center mt-4 leading-relaxed tracking-wider">
+            © {new Date().getFullYear()} ARCANA · Все права защищены · Для лиц 18+<br />
+            Услуги носят исключительно развлекательный и рекомендательный характер.
+            Результаты раскладов не являются гарантией наступления каких-либо событий.
+          </p>
+        </div>
+      </footer>
+      {modal && <LegalModal type={modal} onClose={() => setModal(null)} />}
+    </>
+  );
+};
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 export default function Index() {
@@ -561,6 +661,7 @@ export default function Index() {
       <HowItWorks />
       <Reviews />
       <Contacts />
+      <EmailSubscribe />
       <Footer />
     </div>
   );
