@@ -95,12 +95,12 @@ const Nav = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "nav-blur py-3" : "py-5"}`}>
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <span className="font-cormorant text-2xl font-light tracking-[0.15em] gold-text">✦ ARCANA</span>
+        <span className="font-playfair text-2xl font-medium tracking-[0.12em] gold-text">✦ ARCANA</span>
         <div className="hidden md:flex items-center gap-7">
           {links.map(([l, h]) => (
-            <a key={h} href={h} className="font-golos text-xs tracking-[0.2em] uppercase text-foreground/55 hover:text-gold transition-colors">{l}</a>
+            <a key={h} href={h} className="font-roboto text-xs tracking-[0.2em] uppercase text-foreground/55 hover:text-gold transition-colors">{l}</a>
           ))}
-          <a href="#reading" className="font-golos text-xs px-5 py-2.5 bg-gold text-background hover:bg-gold/85 transition-all rounded-sm tracking-[0.15em] uppercase font-medium">
+          <a href="#reading" className="font-roboto text-xs px-5 py-2.5 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-[0.15em] uppercase font-medium">
             Вытянуть карту
           </a>
         </div>
@@ -111,7 +111,7 @@ const Nav = () => {
       {open && (
         <div className="md:hidden nav-blur border-t border-gold/10 px-6 py-5 flex flex-col gap-4">
           {links.map(([l, h]) => (
-            <a key={h} href={h} onClick={() => setOpen(false)} className="font-golos text-xs tracking-[0.2em] uppercase text-foreground/55 hover:text-gold transition-colors">{l}</a>
+            <a key={h} href={h} onClick={() => setOpen(false)} className="font-roboto text-xs tracking-[0.2em] uppercase text-foreground/55 hover:text-gold transition-colors">{l}</a>
           ))}
         </div>
       )}
@@ -141,35 +141,35 @@ const Hero = () => (
     </div>
 
     <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-      <p className="font-golos text-xs tracking-[0.45em] uppercase text-gold/50 mb-8 animate-fade-in"
+      <p className="font-roboto text-xs tracking-[0.45em] uppercase text-gold/50 mb-8 animate-fade-in"
         style={{ animationDelay: "0.2s", opacity: 0 }}>
         ✦ &nbsp; 22 старших аркана &nbsp;·&nbsp; мгновенный ответ &nbsp; ✦
       </p>
-      <h1 className="font-cormorant font-light leading-[0.9] mb-7 animate-fade-in-up"
-        style={{ fontSize: "clamp(3.5rem, 10vw, 8rem)", animationDelay: "0.35s", opacity: 0 }}>
+      <h1 className="font-playfair font-medium leading-[0.92] mb-7 animate-fade-in-up"
+        style={{ fontSize: "clamp(3.2rem, 9.5vw, 7.5rem)", animationDelay: "0.35s", opacity: 0 }}>
         <span className="animate-shimmer block">Карты знают</span>
-        <span className="text-foreground/70 italic">ответ</span>
+        <span className="text-foreground/65 italic font-normal">ответ</span>
       </h1>
-      <p className="font-cormorant text-xl md:text-2xl text-foreground/55 italic leading-relaxed mb-11 animate-fade-in"
+      <p className="font-playfair text-xl md:text-2xl text-foreground/50 italic leading-relaxed mb-11 animate-fade-in"
         style={{ animationDelay: "0.7s", opacity: 0 }}>
         Вытяните карту — получите ответ за 10 секунд.<br className="hidden md:block" />
         Сохраните в именном PDF-сертификате за 199 ₽.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in"
         style={{ animationDelay: "1s", opacity: 0 }}>
-        <a href="#reading" className="animate-pulse-glow font-golos text-sm px-10 py-4 bg-gold text-background hover:bg-gold/85 transition-all rounded-sm tracking-[0.18em] uppercase font-medium">
+        <a href="#reading" className="animate-pulse-glow font-roboto text-sm px-10 py-4 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-[0.18em] uppercase font-medium">
           🔮 Вытянуть карту — бесплатно
         </a>
-        <a href="#services" className="font-golos text-sm px-8 py-4 border border-gold/35 text-gold hover:bg-gold/8 transition-all rounded-sm tracking-[0.15em] uppercase">
-          Все услуги
+        <a href="#cert-preview" className="font-roboto text-sm px-8 py-4 border border-gold/35 text-gold hover:bg-gold/8 transition-all rounded-sm tracking-[0.15em] uppercase">
+          Смотреть пример
         </a>
       </div>
       <div className="mt-16 flex justify-center gap-12 animate-fade-in"
         style={{ animationDelay: "1.3s", opacity: 0 }}>
         {[["2 400+","раскладов"],["98%","точность"],["4.9★","рейтинг"]].map(([n, l]) => (
           <div key={l} className="text-center">
-            <div className="font-cormorant text-3xl md:text-4xl gold-text font-light">{n}</div>
-            <div className="font-golos text-xs text-foreground/35 tracking-widest uppercase mt-1">{l}</div>
+            <div className="font-playfair text-3xl md:text-4xl gold-text font-medium">{n}</div>
+            <div className="font-roboto text-xs text-foreground/35 tracking-widest uppercase mt-1">{l}</div>
           </div>
         ))}
       </div>
@@ -191,6 +191,7 @@ const Reading = () => {
   const [flipped, setFlipped] = useState(false);
   const [name, setName] = useState("");
   const [showFull, setShowFull] = useState(false);
+  const [shared, setShared] = useState(false);
 
   const pickTopic = (t: typeof TOPICS[0]) => { setTopic(t); setStep("shuffle"); };
 
@@ -204,30 +205,54 @@ const Reading = () => {
 
   const reset = () => {
     setStep("topic"); setTopic(null); setCard(null);
-    setFlipped(false); setShowFull(false); setName("");
+    setFlipped(false); setShowFull(false); setName(""); setShared(false);
+  };
+
+  const handleShare = () => {
+    const text = `Карты ответили на мой вопрос! Выпал «${card?.name}» ✦ ${card?.short} Попробуй и ты → ${window.location.href}`;
+    if (navigator.share) {
+      navigator.share({ title: `Моя карта — ${card?.name}`, text, url: window.location.href }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(text).then(() => { setShared(true); setTimeout(() => setShared(false), 3000); });
+    }
   };
 
   return (
     <section id="reading" className="relative py-28 px-6" style={{ background: "hsl(240,20%,4%)" }}>
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-12">
-          <p className="font-golos text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Бесплатный расклад ✦</p>
-          <h2 className="font-cormorant text-5xl md:text-6xl font-light">Вытяни карту</h2>
+          <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Бесплатный расклад ✦</p>
+          <h2 className="font-playfair text-5xl md:text-6xl font-medium">Вытяни карту</h2>
           <Divider />
-          <p className="font-cormorant text-lg text-foreground/45 italic mt-3">Сосредоточьтесь на своём вопросе</p>
+          <p className="font-playfair text-lg text-foreground/45 italic mt-3">Сосредоточьтесь на своём вопросе</p>
         </div>
 
         {/* Step 1 — Topic */}
         {step === "topic" && (
           <div className="animate-fade-in-up">
-            <p className="font-golos text-sm text-foreground/50 text-center mb-6 tracking-wide">Выберите тему расклада:</p>
+            <p className="font-roboto text-sm text-foreground/50 text-center mb-6 tracking-wide">Выберите тему расклада:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {TOPICS.map((t) => (
                 <button key={t.id} onClick={() => pickTopic(t)}
                   className="mystical-card rounded-sm px-6 py-4 text-left group transition-all duration-300">
-                  <div className="font-cormorant text-lg text-foreground group-hover:text-gold transition-colors">{t.label}</div>
-                  <div className="font-golos text-xs text-foreground/40 mt-1">{t.q}</div>
+                  <div className="font-playfair text-lg text-foreground group-hover:text-gold transition-colors">{t.label}</div>
+                  <div className="font-roboto text-xs text-foreground/40 mt-1">{t.q}</div>
                 </button>
+              ))}
+            </div>
+            {/* Блоки доверия — критерий 2.3 */}
+            <div className="flex flex-wrap justify-center gap-3 mt-6">
+              {[
+                { icon: "ShieldCheck", text: "Без скрытых платежей" },
+                { icon: "CreditCard",  text: "Разовая покупка" },
+                { icon: "Zap",         text: "Мгновенная доставка" },
+                { icon: "Lock",        text: "Конфиденциально" },
+              ].map(({ icon, text }) => (
+                <div key={text} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm"
+                  style={{ background: "hsla(38,90%,51%,0.06)", border: "1px solid hsla(38,90%,51%,0.15)" }}>
+                  <Icon name={icon} size={12} className="text-gold/55" />
+                  <span className="font-roboto text-xs text-foreground/45">{text}</span>
+                </div>
               ))}
             </div>
           </div>
@@ -236,9 +261,9 @@ const Reading = () => {
         {/* Step 2 — Shuffle */}
         {step === "shuffle" && (
           <div className="animate-fade-in-up text-center">
-            <p className="font-cormorant text-xl italic text-foreground/60 mb-2">{topic?.label}</p>
-            <p className="font-golos text-sm text-foreground/40 mb-10">{topic?.q}</p>
-            <p className="font-golos text-sm text-foreground/55 mb-8">Подержите мысль о вопросе... и нажмите на колоду:</p>
+            <p className="font-playfair text-xl italic text-foreground/60 mb-2">{topic?.label}</p>
+            <p className="font-roboto text-sm text-foreground/40 mb-10">{topic?.q}</p>
+            <p className="font-roboto text-sm text-foreground/55 mb-8">Подержите мысль о вопросе... и нажмите на колоду:</p>
             <div className="flex justify-center mb-10">
               <button onClick={drawCard} className="relative w-40 h-60 group cursor-pointer">
                 {[2, 1, 0].map((i) => (
@@ -246,13 +271,13 @@ const Reading = () => {
                     style={{ transform: `translateX(${(i - 1) * 4}px) translateY(${(i - 1) * 3}px) rotate(${(i - 1) * 2}deg)` }}>
                     <div className="h-full flex flex-col items-center justify-center gap-3">
                       <div className="text-4xl opacity-30">✦</div>
-                      <div className="font-cormorant text-xs text-gold/30 tracking-widest uppercase">Таро</div>
+                      <div className="font-roboto text-xs text-gold/30 tracking-widest uppercase">Таро</div>
                     </div>
                   </div>
                 ))}
                 <div className="absolute inset-0 rounded-md bg-gold/5 group-hover:bg-gold/12 transition-all duration-300 border border-gold/20 group-hover:border-gold/50" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-cormorant text-gold/60 group-hover:text-gold transition-colors text-sm italic">нажмите</span>
+                  <span className="font-playfair text-gold/60 group-hover:text-gold transition-colors text-sm italic">нажмите</span>
                 </div>
               </button>
             </div>
@@ -263,16 +288,16 @@ const Reading = () => {
         {/* Step 3 — Reveal */}
         {step === "reveal" && card && (
           <div className="animate-fade-in-up text-center">
-            <p className="font-cormorant text-lg italic text-foreground/55 mb-8">{topic?.q}</p>
+            <p className="font-playfair text-lg italic text-foreground/55 mb-8">{topic?.q}</p>
             <div className="flex justify-center mb-8">
               <div className="relative w-44 h-72" style={{ perspective: "800px" }}>
                 <div className="absolute inset-0 transition-transform duration-700 ease-out"
                   style={{ transformStyle: "preserve-3d", transform: flipped ? "rotateY(0deg)" : "rotateY(90deg)" }}>
                   <div className="absolute inset-0 rounded-md mystical-card gold-border flex flex-col items-center justify-center gap-4 p-6">
-                    <div className="font-cormorant text-2xl font-light text-gold/70">{card.sym}</div>
+                    <div className="font-playfair text-2xl font-medium text-gold/70">{card.sym}</div>
                     <div className="text-5xl animate-float">{card.emoji}</div>
                     <Divider slim />
-                    <div className="font-cormorant text-xl font-medium text-foreground">{card.name}</div>
+                    <div className="font-playfair text-xl font-medium text-foreground">{card.name}</div>
                     {(["top-2 left-2","top-2 right-2","bottom-2 left-2","bottom-2 right-2"] as const).map(p => (
                       <span key={p} className={`absolute ${p} text-gold/25 text-xs`}>✦</span>
                     ))}
@@ -280,26 +305,32 @@ const Reading = () => {
                 </div>
               </div>
             </div>
-            <h3 className="font-cormorant text-3xl font-light text-gold mb-3">{card.name}</h3>
-            <p className="font-cormorant text-lg italic text-foreground/65 leading-relaxed mb-6 max-w-md mx-auto">{card.short}</p>
+            <h3 className="font-playfair text-3xl font-medium text-gold mb-3">{card.name}</h3>
+            <p className="font-playfair text-lg italic text-foreground/65 leading-relaxed mb-6 max-w-md mx-auto">{card.short}</p>
             {showFull && (
               <div className="mystical-card rounded-sm p-6 mb-6 text-left animate-fade-in">
-                <p className="font-golos text-sm text-foreground/60 leading-relaxed">{card.full}</p>
+                <p className="font-roboto text-sm text-foreground/60 leading-relaxed">{card.full}</p>
               </div>
             )}
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               {!showFull && (
                 <button onClick={() => setShowFull(true)}
-                  className="font-golos text-sm px-6 py-3 border border-gold/30 text-gold/70 hover:border-gold hover:text-gold transition-all rounded-sm tracking-wider">
+                  className="font-roboto text-sm px-6 py-3 border border-gold/30 text-gold/70 hover:border-gold hover:text-gold transition-all rounded-sm tracking-wider">
                   Читать полностью
                 </button>
               )}
               <button onClick={() => setStep("upsell")}
-                className="animate-pulse-glow font-golos text-sm px-7 py-3 bg-gold text-background hover:bg-gold/85 transition-all rounded-sm tracking-wider font-medium">
+                className="animate-pulse-glow font-roboto text-sm px-7 py-3 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-wider font-medium">
                 ✨ Сохранить в сертификат — 199 ₽
               </button>
             </div>
-            <button onClick={reset} className="mt-4 font-golos text-xs text-foreground/25 hover:text-foreground/50 transition-colors tracking-wider block mx-auto">
+            {/* Кнопка «Поделиться» — критерий 6.1 */}
+            <button onClick={handleShare}
+              className="mt-4 flex items-center gap-2 mx-auto font-roboto text-xs text-foreground/35 hover:text-gold/60 transition-colors tracking-wider">
+              <Icon name="Share2" size={13} />
+              {shared ? "Ссылка скопирована!" : "Поделиться результатом"}
+            </button>
+            <button onClick={reset} className="mt-2 font-roboto text-xs text-foreground/20 hover:text-foreground/45 transition-colors tracking-wider block mx-auto">
               Новый расклад
             </button>
           </div>
@@ -311,47 +342,65 @@ const Reading = () => {
             <div className="mystical-card rounded-sm p-8">
               <div className="text-center mb-6">
                 <div className="text-4xl mb-3">{card.emoji}</div>
-                <h3 className="font-cormorant text-2xl text-gold mb-1">Именной PDF-сертификат</h3>
-                <p className="font-cormorant text-lg italic text-foreground/50">Карта «{card.name}» для вас</p>
+                <h3 className="font-playfair text-2xl text-gold mb-1">Именной PDF-сертификат</h3>
+                <p className="font-playfair text-lg italic text-foreground/50">Карта «{card.name}» для вас</p>
+              </div>
+              {/* Превью сертификата — критерий 2.2 */}
+              <div className="rounded-sm p-5 mb-4 relative overflow-hidden"
+                style={{ background: "linear-gradient(145deg, hsl(232,22%,9%), hsl(270,20%,12%))", border: "1px solid hsla(38,90%,51%,0.4)" }}>
+                <div className="absolute inset-0 opacity-5" style={{ background: "radial-gradient(ellipse at 50% 0%, hsl(270,60%,40%), transparent 70%)" }} />
+                <p className="font-roboto text-xs tracking-[0.3em] uppercase text-gold/40 text-center mb-3">Предварительный просмотр</p>
+                <div className="flex items-center gap-4">
+                  <div className="text-3xl">{card.emoji}</div>
+                  <div className="flex-1">
+                    <p className="font-playfair text-base text-gold">{name || "Ваше Имя"}</p>
+                    <p className="font-roboto text-xs text-foreground/40 mt-0.5">{card.sym} · {card.name}</p>
+                    <p className="font-playfair text-xs italic text-foreground/50 mt-1 leading-relaxed line-clamp-2">{card.short}</p>
+                  </div>
+                </div>
+                <div className="mt-3 pt-3 border-t border-gold/10 flex justify-between">
+                  <span className="font-roboto text-xs text-foreground/25 tracking-wider">Совет · Предостережение · Аффирмация</span>
+                  <span className="font-roboto text-xs text-gold/30">✦ ARCANA</span>
+                </div>
               </div>
               <Divider />
-              <ul className="space-y-3 my-6">
-                {["Ваше имя на красивом документе","Изображение карты и её символ","Полная расшифровка — 500 слов","Личный совет и предостережение","Аффирмация на день","Красивый дизайн для соцсетей"].map(item => (
+              <ul className="space-y-2.5 my-5">
+                {["Ваше имя на красивом документе","Полная расшифровка — 300–500 слов","Личный совет и предостережение","Аффирмация на день","Красивый дизайн для соцсетей"].map(item => (
                   <li key={item} className="flex items-center gap-3">
                     <span className="text-gold text-xs">✦</span>
-                    <span className="font-golos text-sm text-foreground/65">{item}</span>
+                    <span className="font-roboto text-sm text-foreground/65">{item}</span>
                   </li>
                 ))}
               </ul>
               <Divider />
-              <div className="mt-6">
-                <label className="font-golos text-xs tracking-widest uppercase text-foreground/45 block mb-2">Ваше имя для сертификата</label>
+              <div className="mt-5">
+                <label className="font-roboto text-xs tracking-widest uppercase text-foreground/45 block mb-2">Ваше имя для сертификата</label>
                 <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Например: Мария"
-                  className="w-full bg-transparent border border-gold/25 focus:border-gold/60 outline-none px-4 py-3 font-golos text-sm text-foreground placeholder:text-foreground/25 transition-colors rounded-sm mb-4" />
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-cormorant text-3xl gold-text">199 ₽</span>
-                  <span className="font-golos text-xs text-foreground/30 line-through">1 500 ₽ у таролога</span>
+                  className="w-full bg-transparent border border-gold/25 focus:border-gold/60 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/25 transition-colors rounded-sm mb-4" />
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-playfair text-3xl gold-text">199 ₽</span>
+                  <span className="font-roboto text-xs text-foreground/30 line-through">1 500 ₽ у таролога</span>
                 </div>
-                <button className="w-full animate-pulse-glow font-golos text-sm py-4 bg-gold text-background hover:bg-gold/85 transition-all rounded-sm tracking-[0.15em] uppercase font-medium">
+                <button className="w-full animate-pulse-glow font-roboto text-sm py-4 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-[0.15em] uppercase font-medium">
                   Хочу правду — 199 ₽
                 </button>
-                <p className="font-golos text-xs text-foreground/30 text-center mt-3">Мгновенная доставка · Оплата картой</p>
+                <p className="font-roboto text-xs text-foreground/30 text-center mt-2">Без подписки · Разовая покупка · Мгновенно на email</p>
               </div>
             </div>
             {/* Mini upsell */}
             <div className="mt-4 p-5 border border-gold/10 rounded-sm">
-              <p className="font-golos text-xs text-foreground/40 text-center mb-3 tracking-wider uppercase">Добавьте к заказу</p>
+              <p className="font-roboto text-xs text-foreground/40 text-center mb-3 tracking-wider uppercase">Добавьте к заказу</p>
               <div className="grid grid-cols-2 gap-3">
-                {([["3 карты","прошлое·настоящее·будущее","+300 ₽"],["Подарок другу","готовый PDF-сертификат","149 ₽"]] as const).map(([t, d, p]) => (
+                {([["3 карты","прошлое · настоящее · будущее","+300 ₽"],["Подарок другу","готовый PDF-сертификат","149 ₽"]] as const).map(([t, d, p]) => (
                   <div key={t} className="mystical-card rounded-sm p-4 text-center cursor-pointer hover:border-gold/40 transition-all">
-                    <div className="font-cormorant text-base text-foreground mb-1">{t}</div>
-                    <div className="font-golos text-xs text-foreground/35 mb-2">{d}</div>
-                    <div className="font-cormorant text-lg gold-text">{p}</div>
+                    <div className="font-playfair text-base text-foreground mb-1">{t}</div>
+                    <div className="font-roboto text-xs text-foreground/35 mb-2">{d}</div>
+                    <div className="font-playfair text-lg gold-text">{p}</div>
                   </div>
                 ))}
               </div>
             </div>
-            <button onClick={reset} className="mt-4 font-golos text-xs text-foreground/25 hover:text-foreground/50 transition-colors tracking-wider block mx-auto">
+            <button onClick={reset} className="mt-4 font-roboto text-xs text-foreground/25 hover:text-foreground/50 transition-colors tracking-wider block mx-auto">
               ← Вернуться к раскладу
             </button>
           </div>
@@ -366,29 +415,29 @@ const Services = () => (
   <section id="services" className="py-28 px-6 section-gradient">
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-14">
-        <p className="font-golos text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Линейка услуг ✦</p>
-        <h2 className="font-cormorant text-5xl md:text-6xl font-light">Услуги и цены</h2>
+        <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Линейка услуг ✦</p>
+        <h2 className="font-playfair text-5xl md:text-6xl font-medium">Услуги и цены</h2>
         <Divider />
-        <p className="font-cormorant text-lg text-foreground/45 italic mt-3">От 199 ₽ до VIP-диагностики</p>
+        <p className="font-playfair text-lg text-foreground/45 italic mt-3">От 199 ₽ до VIP-диагностики</p>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {SERVICES_LIST.map((s) => (
           <div key={s.title} className={`mystical-card rounded-sm p-7 flex flex-col gap-4 relative ${s.hot ? "border-gold/30" : ""}`}>
             {s.hot && (
-              <div className="absolute -top-3 left-6 bg-gold text-background font-golos text-xs px-3 py-1 rounded-sm tracking-widest uppercase font-medium">Хит</div>
+              <div className="absolute -top-3 left-6 bg-gold text-background font-roboto text-xs px-3 py-1 rounded-sm tracking-widest uppercase font-medium">Хит</div>
             )}
             <span className="text-3xl">{s.icon}</span>
             <div>
-              <h3 className="font-cormorant text-xl font-medium text-foreground">{s.title}</h3>
-              <p className="font-golos text-xs text-foreground/45 mt-1 leading-relaxed">{s.desc}</p>
+              <h3 className="font-playfair text-xl font-medium text-foreground">{s.title}</h3>
+              <p className="font-roboto text-xs text-foreground/45 mt-1 leading-relaxed">{s.desc}</p>
             </div>
             <div className="flex-1" />
             <Divider slim />
             <div className="flex items-center justify-between">
-              <span className="font-cormorant text-2xl gold-text font-light">{s.price}</span>
-              <span className="font-golos text-xs text-foreground/30 tracking-wider">{s.dur}</span>
+              <span className="font-playfair text-2xl gold-text font-medium">{s.price}</span>
+              <span className="font-roboto text-xs text-foreground/30 tracking-wider">{s.dur}</span>
             </div>
-            <a href="#contacts" className="mt-1 font-golos text-xs text-center py-2.5 border border-gold/25 text-gold/70 hover:bg-gold hover:text-background hover:border-gold transition-all rounded-sm tracking-[0.15em] uppercase">
+            <a href="#contacts" className="mt-1 font-roboto text-xs text-center py-2.5 border border-gold/25 text-gold/70 hover:bg-gold hover:text-background hover:border-gold transition-all rounded-sm tracking-[0.15em] uppercase">
               Выбрать
             </a>
           </div>
@@ -402,14 +451,14 @@ const Services = () => (
           style={{ background: "radial-gradient(ellipse at right, hsl(270,60%,55%), transparent)" }} />
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <p className="font-golos text-xs tracking-[0.35em] uppercase text-gold/50 mb-2">✦ Специальное предложение</p>
-            <h3 className="font-cormorant text-3xl font-light text-foreground">Подписка на месяц</h3>
-            <p className="font-golos text-sm text-foreground/45 mt-1">5 любых сертификатов · эксклюзивные расклады недели · приоритет записи</p>
+            <p className="font-roboto text-xs tracking-[0.35em] uppercase text-gold/50 mb-2">✦ Специальное предложение</p>
+            <h3 className="font-playfair text-3xl font-medium text-foreground">Подписка на месяц</h3>
+            <p className="font-roboto text-sm text-foreground/45 mt-1">5 любых сертификатов · эксклюзивные расклады недели · приоритет записи</p>
           </div>
           <div className="text-center flex-shrink-0">
-            <div className="font-cormorant text-4xl gold-text font-light">699 ₽</div>
-            <div className="font-golos text-xs text-foreground/30 line-through">1 500 ₽</div>
-            <a href="#contacts" className="mt-3 block font-golos text-xs px-7 py-3 bg-gold text-background hover:bg-gold/85 transition-all rounded-sm tracking-widest uppercase font-medium">
+            <div className="font-playfair text-4xl gold-text font-medium">699 ₽</div>
+            <div className="font-roboto text-xs text-foreground/30 line-through">1 500 ₽</div>
+            <a href="#contacts" className="mt-3 block font-roboto text-xs px-7 py-3 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-widest uppercase font-medium">
               Оформить
             </a>
           </div>
@@ -424,8 +473,8 @@ const HowItWorks = () => (
   <section className="py-24 px-6" style={{ background: "hsl(240,20%,4%)" }}>
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-14">
-        <p className="font-golos text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Процесс ✦</p>
-        <h2 className="font-cormorant text-4xl md:text-5xl font-light">Как это работает</h2>
+        <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Процесс ✦</p>
+        <h2 className="font-playfair text-4xl md:text-5xl font-medium">Как это работает</h2>
         <Divider />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -436,10 +485,10 @@ const HowItWorks = () => (
           { n: "04", icon: "📄", t: "Сохраните PDF",  d: "Именной сертификат приходит на email за минуту" },
         ].map(({ n, icon, t, d }) => (
           <div key={n} className="text-center">
-            <div className="font-cormorant text-5xl text-gold/25 font-light mb-4 leading-none">{n}</div>
+            <div className="font-playfair text-5xl text-gold/25 font-medium mb-4 leading-none">{n}</div>
             <div className="text-3xl mb-3">{icon}</div>
-            <h3 className="font-cormorant text-lg font-medium text-foreground mb-2">{t}</h3>
-            <p className="font-golos text-xs text-foreground/40 leading-relaxed">{d}</p>
+            <h3 className="font-playfair text-lg font-medium text-foreground mb-2">{t}</h3>
+            <p className="font-roboto text-xs text-foreground/40 leading-relaxed">{d}</p>
           </div>
         ))}
       </div>
@@ -452,8 +501,8 @@ const Reviews = () => (
   <section id="reviews" className="py-28 px-6 section-gradient">
     <div className="max-w-5xl mx-auto">
       <div className="text-center mb-14">
-        <p className="font-golos text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Истории клиентов ✦</p>
-        <h2 className="font-cormorant text-5xl md:text-6xl font-light">Отзывы</h2>
+        <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Истории клиентов ✦</p>
+        <h2 className="font-playfair text-5xl md:text-6xl font-medium">Отзывы</h2>
         <Divider />
       </div>
       <div className="grid md:grid-cols-2 gap-5">
@@ -461,15 +510,15 @@ const Reviews = () => (
           <div key={r.name} className="mystical-card rounded-sm p-7 flex flex-col gap-4">
             <div className="flex justify-between items-start">
               <div>
-                <p className="font-cormorant text-lg font-medium">{r.name}</p>
-                <p className="font-golos text-xs text-foreground/35">{r.city}</p>
+                <p className="font-playfair text-lg font-medium">{r.name}</p>
+                <p className="font-roboto text-xs text-foreground/35">{r.city}</p>
               </div>
               <div className="flex gap-0.5">{Array.from({ length: r.stars }).map((_, j) => <span key={j} className="text-gold">★</span>)}</div>
             </div>
-            <p className="font-cormorant text-base italic text-foreground/60 leading-relaxed flex-1">«{r.text}»</p>
+            <p className="font-playfair text-base italic text-foreground/60 leading-relaxed flex-1">«{r.text}»</p>
             <div className="flex items-center gap-2">
               <span className="text-gold/30 text-xs">✦</span>
-              <span className="font-golos text-xs text-gold/45 tracking-wider">{r.service}</span>
+              <span className="font-roboto text-xs text-gold/45 tracking-wider">{r.service}</span>
             </div>
           </div>
         ))}
@@ -485,10 +534,10 @@ const Contacts = () => (
       style={{ background: "radial-gradient(ellipse, hsl(270,50%,50%), transparent)" }} />
     <div className="max-w-xl mx-auto relative z-10">
       <div className="text-center mb-12">
-        <p className="font-golos text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Записаться ✦</p>
-        <h2 className="font-cormorant text-5xl md:text-6xl font-light">Контакты</h2>
+        <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Записаться ✦</p>
+        <h2 className="font-playfair text-5xl md:text-6xl font-medium">Контакты</h2>
         <Divider />
-        <p className="font-cormorant text-xl italic text-foreground/45 mt-3">Напишите — отвечаю в течение часа</p>
+        <p className="font-playfair text-xl italic text-foreground/45 mt-3">Напишите — отвечаю в течение часа</p>
       </div>
       <div className="mystical-card rounded-sm p-8">
         <div className="space-y-5">
@@ -498,24 +547,24 @@ const Contacts = () => (
             { l: "Email для PDF-сертификата", t: "email", p: "your@email.com" },
           ].map(({ l, t, p }) => (
             <div key={l}>
-              <label className="font-golos text-xs tracking-widest uppercase text-foreground/40 block mb-2">{l}</label>
+              <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">{l}</label>
               <input type={t} placeholder={p}
-                className="w-full bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-golos text-sm text-foreground placeholder:text-foreground/22 transition-colors rounded-sm" />
+                className="w-full bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/22 transition-colors rounded-sm" />
             </div>
           ))}
           <div>
-            <label className="font-golos text-xs tracking-widest uppercase text-foreground/40 block mb-2">Услуга</label>
-            <select className="w-full bg-card border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-golos text-sm text-foreground/60 transition-colors rounded-sm">
+            <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">Услуга</label>
+            <select className="w-full bg-card border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground/60 transition-colors rounded-sm">
               <option value="">Выберите...</option>
               {SERVICES_LIST.map(s => <option key={s.title}>{s.title} — {s.price}</option>)}
             </select>
           </div>
           <div>
-            <label className="font-golos text-xs tracking-widest uppercase text-foreground/40 block mb-2">Вопрос или комментарий</label>
+            <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">Вопрос или комментарий</label>
             <textarea rows={3} placeholder="Опишите свою ситуацию..."
-              className="w-full bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-golos text-sm text-foreground placeholder:text-foreground/22 transition-colors rounded-sm resize-none" />
+              className="w-full bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/22 transition-colors rounded-sm resize-none" />
           </div>
-          <button className="animate-pulse-glow w-full font-golos text-sm py-4 bg-gold text-background hover:bg-gold/85 transition-all rounded-sm tracking-[0.18em] uppercase font-medium">
+          <button className="animate-pulse-glow w-full font-roboto text-sm py-4 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-[0.18em] uppercase font-medium">
             Отправить заявку
           </button>
         </div>
@@ -529,8 +578,8 @@ const Contacts = () => (
           <div key={c.label} className="flex items-center gap-3">
             <Icon name={c.icon} size={15} className="text-gold/50" />
             <div>
-              <p className="font-golos text-xs text-foreground/35 tracking-widest uppercase">{c.label}</p>
-              <p className="font-golos text-sm text-foreground/65">{c.val}</p>
+              <p className="font-roboto text-xs text-foreground/35 tracking-widest uppercase">{c.label}</p>
+              <p className="font-roboto text-sm text-foreground/65">{c.val}</p>
             </div>
           </div>
         ))}
@@ -546,26 +595,26 @@ const EmailSubscribe = () => {
   return (
     <section className="py-16 px-6 border-t border-gold/10" style={{ background: "hsl(240,22%,3%)" }}>
       <div className="max-w-xl mx-auto text-center">
-        <p className="font-golos text-xs tracking-[0.4em] uppercase text-gold/45 mb-3">✦ Рассылка ✦</p>
-        <h3 className="font-cormorant text-3xl font-light mb-2">Расклад недели — бесплатно</h3>
-        <p className="font-golos text-xs text-foreground/40 mb-6 leading-relaxed">
+        <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-3">✦ Рассылка ✦</p>
+        <h3 className="font-playfair text-3xl font-medium mb-2">Расклад недели — бесплатно</h3>
+        <p className="font-roboto text-xs text-foreground/40 mb-6 leading-relaxed">
           Каждую неделю: расклад на 7 дней, карта-совет и аффирмация.<br />Только по делу, без спама. Отписаться в 1 клик.
         </p>
         {done ? (
-          <p className="font-cormorant text-xl italic text-gold animate-fade-in">✦ Вы подписаны. Первый расклад придёт в воскресенье ✦</p>
+          <p className="font-playfair text-xl italic text-gold animate-fade-in">✦ Вы подписаны. Первый расклад придёт в воскресенье ✦</p>
         ) : (
           <form onSubmit={e => { e.preventDefault(); if (email) setDone(true); }}
             className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
               placeholder="your@email.com"
-              className="flex-1 bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-golos text-sm text-foreground placeholder:text-foreground/25 transition-colors rounded-sm" />
+              className="flex-1 bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/25 transition-colors rounded-sm" />
             <button type="submit"
-              className="font-golos text-xs px-6 py-3 bg-gold text-background hover:bg-gold/85 transition-all rounded-sm tracking-widest uppercase font-medium whitespace-nowrap">
+              className="font-roboto text-xs px-6 py-3 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-widest uppercase font-medium whitespace-nowrap">
               Подписаться
             </button>
           </form>
         )}
-        <p className="font-golos text-xs text-foreground/20 mt-3">
+        <p className="font-roboto text-xs text-foreground/20 mt-3">
           Нажимая «Подписаться», вы соглашаетесь с{" "}
           <a href="#privacy" className="underline hover:text-foreground/40 transition-colors">политикой конфиденциальности</a>
         </p>
@@ -585,12 +634,12 @@ const LegalModal = ({ type, onClose }: { type: "privacy" | "offer"; onClose: () 
         <button onClick={onClose} className="absolute top-4 right-4 text-foreground/40 hover:text-foreground transition-colors">
           <Icon name="X" size={18} />
         </button>
-        <h3 className="font-cormorant text-2xl gold-text mb-4">
+        <h3 className="font-playfair text-2xl gold-text mb-4">
           {isPrivacy ? "Политика конфиденциальности" : "Публичная оферта"}
         </h3>
         <Divider slim />
         {isPrivacy ? (
-          <div className="font-golos text-xs text-foreground/55 leading-relaxed space-y-3 mt-4">
+          <div className="font-roboto text-xs text-foreground/55 leading-relaxed space-y-3 mt-4">
             <p><strong className="text-foreground/70">Сбор данных.</strong> Мы собираем только имя и email, которые вы добровольно указываете при оформлении заказа или подписки.</p>
             <p><strong className="text-foreground/70">Использование.</strong> Данные используются исключительно для доставки PDF-сертификата и рассылки (при подписке). Третьим лицам не передаются.</p>
             <p><strong className="text-foreground/70">Хранение.</strong> Данные хранятся на защищённых серверах. Вы можете запросить удаление в любой момент, написав нам.</p>
@@ -598,7 +647,7 @@ const LegalModal = ({ type, onClose }: { type: "privacy" | "offer"; onClose: () 
             <p><strong className="text-foreground/70">Контакт.</strong> По вопросам конфиденциальности: @arcana_taro в Telegram.</p>
           </div>
         ) : (
-          <div className="font-golos text-xs text-foreground/55 leading-relaxed space-y-3 mt-4">
+          <div className="font-roboto text-xs text-foreground/55 leading-relaxed space-y-3 mt-4">
             <p><strong className="text-foreground/70">Предмет.</strong> Исполнитель оказывает услуги по составлению Таро-раскладов и подготовке аналитических PDF-материалов в развлекательных целях.</p>
             <p><strong className="text-foreground/70">Характер услуг.</strong> Все расклады носят исключительно развлекательный и рекомендательный характер. Исполнитель не даёт гарантий реализации каких-либо событий.</p>
             <p><strong className="text-foreground/70">Оплата.</strong> Услуга считается оказанной после доставки PDF-сертификата на email клиента.</p>
@@ -619,25 +668,25 @@ const Footer = () => {
       <footer className="py-10 px-6 border-t border-gold/10" style={{ background: "hsl(240,22%,3%)" }}>
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-            <p className="font-cormorant text-xl gold-text font-light tracking-[0.2em]">✦ ARCANA</p>
+            <p className="font-playfair text-xl gold-text font-medium tracking-[0.15em]">✦ ARCANA</p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
               <button onClick={() => setModal("privacy")}
-                className="font-golos text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider underline-offset-2">
+                className="font-roboto text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider underline-offset-2">
                 Политика конфиденциальности
               </button>
               <button onClick={() => setModal("offer")}
-                className="font-golos text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider underline-offset-2">
+                className="font-roboto text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider underline-offset-2">
                 Публичная оферта
               </button>
               <a href="https://t.me/arcana_taro" target="_blank" rel="noopener noreferrer"
-                className="font-golos text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider flex items-center gap-1">
+                className="font-roboto text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider flex items-center gap-1">
                 <Icon name="Send" size={11} />
                 Telegram-канал
               </a>
             </div>
           </div>
           <Divider slim />
-          <p className="font-golos text-xs text-foreground/20 text-center mt-4 leading-relaxed tracking-wider">
+          <p className="font-roboto text-xs text-foreground/20 text-center mt-4 leading-relaxed tracking-wider">
             © {new Date().getFullYear()} ARCANA · Все права защищены · Для лиц 18+<br />
             Услуги носят исключительно развлекательный и рекомендательный характер.
             Результаты раскладов не являются гарантией наступления каких-либо событий.
