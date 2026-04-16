@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Icon from "@/components/ui/icon";
 
+// ─── PAYMENT URL ───────────────────────────────────────────────────────────────
+const CREATE_PAYMENT_URL = "https://functions.poehali.dev/929e829c-3dc0-43c4-9a05-5ce4df837e89";
+
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
 const ARCANA = [
@@ -46,27 +49,21 @@ const SERVICES_LIST = [
 ];
 
 const REVIEWS_LIST = [
-  { name: "★ Клиент из Москвы",         city: "",               stars: 5, text: "Сделала расклад перед собеседованием — карта сказала «не бояться». Прошла! Сохранила PDF, перечитываю в трудные моменты.",  service: "PDF-сертификат"   },
-  { name: "★ Клиент из Санкт-Петербурга", city: "",             stars: 5, text: "Подарила подруге сертификат на «Чувства партнёра». Она расплакалась от точности. Теперь обе постоянные клиентки!",          service: "Чувства партнёра" },
-  { name: "★ Клиент из Екатеринбурга",  city: "",               stars: 5, text: "Расклад на год показал всё как по нотам. Февраль, апрель и сентябрь случились именно так, как было описано.",              service: "Расклад на год"   },
-  { name: "★ Клиент из Казани",         city: "",               stars: 5, text: "Кельтский крест дал мне ответ, который я искала три года. Теперь точно знаю, что делать с бизнесом.",                     service: "Кельтский крест"  },
-  { name: "★ Клиент из Новосибирска",   city: "",               stars: 5, text: "Очень точно описала мою ситуацию на работе. Даже детали совпали. Буду заказывать снова перед важными решениями.",         service: "Расклад «Да/Нет»" },
-  { name: "★ Клиент из Краснодара",     city: "",               stars: 5, text: "Скептически относилась к Таро, но PDF-сертификат заказала ради интереса. Была поражена точностью. Теперь верю!",          service: "PDF-сертификат"   },
-  { name: "★ Клиент из Ростова-на-Дону",city: "",               stars: 5, text: "Муж смотрел через плечо и тоже захотел расклад. Теперь всей семьёй проверяем важные решения через карты.",                service: "Расклад на год"   },
-  { name: "★ Клиент из Тюмени",         city: "",               stars: 5, text: "VIP-диагностика превзошла все ожидания. Видео разбор + PDF — очень ценно. Пересматриваю периодически.",                   service: "VIP-диагностика"  },
-  { name: "★ Клиент из Уфы",            city: "",               stars: 5, text: "Заказала «Чувства партнёра» перед сложным разговором. Расклад помог понять, как лучше начать диалог. Всё получилось!",    service: "Чувства партнёра" },
+  { name: "★ Клиент из Москвы",           city: "", stars: 5, text: "Сделала расклад перед собеседованием — карта сказала «не бояться». Прошла! Сохранила PDF, перечитываю в трудные моменты.",                         service: "PDF-сертификат"   },
+  { name: "★ Клиент из Санкт-Петербурга", city: "", stars: 5, text: "Подарила подруге сертификат на «Чувства партнёра». Он оказался точным до мурашек. Теперь обе стали постоянными клиентами.",                       service: "Чувства партнёра" },
+  { name: "★ Клиент из Казани",           city: "", stars: 5, text: "Скептик по природе, но расклад на год описал мою ситуацию настолько точно, что я потерял дар речи. Рекомендую всем.",                            service: "Расклад на год"   },
+  { name: "★ Клиент из Екатеринбурга",    city: "", stars: 5, text: "VIP-диагностика изменила моё отношение к ситуации. Получила чёткий план действий. Видео и PDF — на память. Спасибо огромное!",                   service: "VIP-диагностика"  },
 ];
 
-// ─── HELPERS ──────────────────────────────────────────────────────────────────
-
+// ─── STAR FIELD ───────────────────────────────────────────────────────────────
 const StarField = () => {
-  const stars = Array.from({ length: 100 }, (_, i) => ({
+  const stars = Array.from({ length: 60 }, (_, i) => ({
     id: i,
     top: Math.random() * 100,
     left: Math.random() * 100,
-    size: Math.random() * 2.2 + 0.4,
-    delay: Math.random() * 7,
-    dur: Math.random() * 4 + 3,
+    size: Math.random() * 2 + 1,
+    delay: Math.random() * 4,
+    dur: Math.random() * 3 + 2,
   }));
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -157,8 +154,9 @@ const Hero = () => (
       </h1>
       <p className="font-playfair text-xl md:text-2xl text-foreground/50 italic leading-relaxed mb-11 animate-fade-in"
         style={{ animationDelay: "0.7s", opacity: 0 }}>
-        Вытяните карту — получите ответ за 10 секунд.<br className="hidden md:block" />
-        Сохраните в именном PDF-сертификате за 199 ₽.
+        Задайте вопрос картам Таро — бесплатно, без регистрации, прямо сейчас.<br className="hidden md:block" />
+        Вытяните одну карту и получите личный ответ за 10 секунд.<br className="hidden md:block" />
+        Сохраните именной PDF-сертификат с полной расшифровкой — останется с вами навсегда.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in"
         style={{ animationDelay: "1s", opacity: 0 }}>
@@ -169,7 +167,7 @@ const Hero = () => (
           Смотреть пример
         </a>
       </div>
-      <div className="mt-16 flex justify-center gap-12 animate-fade-in"
+      <div className="mt-10 flex justify-center gap-8 animate-fade-in"
         style={{ animationDelay: "1.3s", opacity: 0 }}>
         {[["2 400+","раскладов"],["98%","точность"],["4.9★","рейтинг"]].map(([n, l]) => (
           <div key={l} className="text-center">
@@ -178,6 +176,9 @@ const Hero = () => (
           </div>
         ))}
       </div>
+      <p className="font-roboto text-sm text-foreground/40 mt-6 animate-fade-in" style={{ animationDelay: "1.5s", opacity: 0 }}>
+        Каждый день сотни людей находят ответы с помощью Таро. Присоединяйтесь — это бесплатно.
+      </p>
     </div>
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-float opacity-40">
       <span className="font-golos text-xs tracking-[0.3em] uppercase text-foreground/50">Прокрутите</span>
@@ -195,8 +196,19 @@ const Reading = () => {
   const [card, setCard] = useState<typeof ARCANA[0] | null>(null);
   const [flipped, setFlipped] = useState(false);
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [showFull, setShowFull] = useState(false);
   const [shared, setShared] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [payError, setPayError] = useState("");
+
+  // Check for successful payment redirect
+  const [paid, setPaid] = useState(false);
+  useEffect(() => {
+    if (window.location.search.includes("paid=1")) {
+      setPaid(true);
+    }
+  }, []);
 
   const pickTopic = (t: typeof TOPICS[0]) => { setTopic(t); setStep("shuffle"); };
 
@@ -210,7 +222,8 @@ const Reading = () => {
 
   const reset = () => {
     setStep("topic"); setTopic(null); setCard(null);
-    setFlipped(false); setShowFull(false); setName(""); setShared(false);
+    setFlipped(false); setShowFull(false); setName(""); setEmail("");
+    setShared(false); setLoading(false); setPayError("");
   };
 
   const handleShare = () => {
@@ -222,10 +235,67 @@ const Reading = () => {
     }
   };
 
+  const handlePayment = async () => {
+    if (!email || !name) {
+      setPayError("Пожалуйста, заполните email и имя.");
+      return;
+    }
+    setLoading(true);
+    setPayError("");
+    try {
+      const res = await fetch(CREATE_PAYMENT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          card_name: card?.name,
+          card_emoji: card?.emoji,
+          card_full: card?.full,
+          amount: 199,
+          return_url: window.location.href + "?paid=1",
+        }),
+      });
+      const data = await res.json();
+      if (data.payment_url) {
+        window.location.href = data.payment_url;
+      } else {
+        setPayError(data.error || "Не удалось создать платёж. Попробуйте ещё раз.");
+        setLoading(false);
+      }
+    } catch {
+      setPayError("Ошибка соединения. Проверьте интернет и попробуйте снова.");
+      setLoading(false);
+    }
+  };
+
+  // Thank you page after successful payment
+  if (paid) {
+    return (
+      <section id="reading" className="relative py-16 px-6" style={{ background: "hsl(270,25%,5%)" }}>
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="text-6xl mb-6">✦</div>
+          <h2 className="font-playfair text-4xl md:text-5xl font-medium gold-text mb-4">
+            Спасибо! Сертификат уже летит к вам на email ✦
+          </h2>
+          <Divider />
+          <p className="font-playfair text-xl italic text-foreground/55 mt-4 leading-relaxed">
+            Проверьте вашу почту — именной PDF-сертификат с полной расшифровкой уже в пути.<br />
+            Если письма нет в течение 5 минут, загляните в папку «Спам».
+          </p>
+          <button onClick={() => { setPaid(false); reset(); window.history.replaceState({}, "", window.location.pathname); }}
+            className="mt-8 font-roboto text-xs px-8 py-3 border border-gold/35 text-gold hover:bg-gold/8 transition-all rounded-sm tracking-[0.15em] uppercase">
+            Сделать новый расклад
+          </button>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section id="reading" className="relative py-28 px-6" style={{ background: "hsl(270,25%,5%)" }}>
+    <section id="reading" className="relative py-16 px-6" style={{ background: "hsl(270,25%,5%)" }}>
       <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Бесплатный расклад ✦</p>
           <h2 className="font-playfair text-5xl md:text-6xl font-medium">Вытяни карту</h2>
           <Divider />
@@ -239,118 +309,100 @@ const Reading = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {TOPICS.map((t) => (
                 <button key={t.id} onClick={() => pickTopic(t)}
-                  className="mystical-card rounded-sm px-6 py-4 text-left group transition-all duration-300">
-                  <div className="font-playfair text-lg text-foreground group-hover:text-gold transition-colors">{t.label}</div>
-                  <div className="font-roboto text-xs text-foreground/40 mt-1">{t.q}</div>
+                  className="mystical-card rounded-sm p-5 text-left hover:border-gold/40 transition-all group">
+                  <span className="font-playfair text-lg group-hover:gold-text transition-colors">{t.label}</span>
+                  <p className="font-roboto text-xs text-foreground/35 mt-1">{t.q}</p>
                 </button>
-              ))}
-            </div>
-            {/* Блоки доверия — критерий 2.3 */}
-            <div className="flex flex-wrap justify-center gap-3 mt-6">
-              {[
-                { icon: "ShieldCheck", text: "Без скрытых платежей" },
-                { icon: "CreditCard",  text: "Разовая покупка" },
-                { icon: "Zap",         text: "Мгновенная доставка" },
-                { icon: "Lock",        text: "Конфиденциально" },
-              ].map(({ icon, text }) => (
-                <div key={text} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm"
-                  style={{ background: "hsla(46,100%,60%,0.07)", border: "1px solid hsla(46,100%,60%,0.18)" }}>
-                  <Icon name={icon} size={12} className="text-gold/55" />
-                  <span className="font-roboto text-xs text-foreground/45">{text}</span>
-                </div>
               ))}
             </div>
           </div>
         )}
 
         {/* Step 2 — Shuffle */}
-        {step === "shuffle" && (
+        {step === "shuffle" && topic && (
           <div className="animate-fade-in-up text-center">
-            <p className="font-playfair text-xl italic text-foreground/60 mb-2">{topic?.label}</p>
-            <p className="font-roboto text-sm text-foreground/40 mb-10">{topic?.q}</p>
-            <p className="font-roboto text-sm text-foreground/55 mb-8">Подержите мысль о вопросе... и нажмите на колоду:</p>
-            <div className="flex justify-center mb-10">
-              <button onClick={drawCard} className="relative w-40 h-60 group cursor-pointer">
-                {[2, 1, 0].map((i) => (
-                  <div key={i} className="absolute inset-0 rounded-md mystical-card gold-border"
-                    style={{ transform: `translateX(${(i - 1) * 4}px) translateY(${(i - 1) * 3}px) rotate(${(i - 1) * 2}deg)` }}>
-                    <div className="h-full flex flex-col items-center justify-center gap-3">
-                      <div className="text-4xl opacity-30">✦</div>
-                      <div className="font-roboto text-xs text-gold/30 tracking-widest uppercase">Таро</div>
-                    </div>
-                  </div>
-                ))}
-                <div className="absolute inset-0 rounded-md bg-gold/5 group-hover:bg-gold/12 transition-all duration-300 border border-gold/20 group-hover:border-gold/50" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-playfair text-gold/60 group-hover:text-gold transition-colors text-sm italic">нажмите</span>
-                </div>
-              </button>
+            <div className="mystical-card rounded-sm p-6 mb-6">
+              <p className="font-roboto text-xs text-foreground/40 tracking-widest uppercase mb-3">Ваш вопрос</p>
+              <p className="font-playfair text-xl italic text-foreground/70">«{topic.q}»</p>
             </div>
-            <button onClick={reset} className="font-golos text-xs text-foreground/30 hover:text-foreground/60 transition-colors tracking-wider">← Сменить тему</button>
+            <p className="font-playfair text-base text-foreground/50 italic mb-8">
+              Сделайте три глубоких вдоха. Сосредоточьтесь.<br />Когда будете готовы — вытяните карту.
+            </p>
+            <button onClick={drawCard}
+              className="animate-pulse-glow mx-auto flex flex-col items-center gap-4 mystical-card rounded-sm p-8 hover:border-gold/50 transition-all w-48 cursor-pointer">
+              <div className="text-5xl animate-float">🃏</div>
+              <span className="font-roboto text-xs tracking-[0.25em] uppercase text-gold/60">Вытянуть</span>
+            </button>
+            <button onClick={() => setStep("topic")}
+              className="mt-6 font-roboto text-xs text-foreground/25 hover:text-foreground/50 transition-colors tracking-wider">
+              ← Изменить тему
+            </button>
           </div>
         )}
 
         {/* Step 3 — Reveal */}
         {step === "reveal" && card && (
-          <div className="animate-fade-in-up text-center">
-            <p className="font-playfair text-lg italic text-foreground/55 mb-8">{topic?.q}</p>
-            <div className="flex justify-center mb-8">
-              <div className="relative w-44 h-72" style={{ perspective: "800px" }}>
-                <div className="absolute inset-0 transition-transform duration-700 ease-out"
-                  style={{ transformStyle: "preserve-3d", transform: flipped ? "rotateY(0deg)" : "rotateY(90deg)" }}>
-                  <div className="absolute inset-0 rounded-md mystical-card gold-border flex flex-col items-center justify-center gap-4 p-6">
-                    <div className="font-playfair text-2xl font-medium text-gold/70">{card.sym}</div>
-                    <div className="text-5xl animate-float">{card.emoji}</div>
-                    <Divider slim />
-                    <div className="font-playfair text-xl font-medium text-foreground">{card.name}</div>
-                    {(["top-2 left-2","top-2 right-2","bottom-2 left-2","bottom-2 right-2"] as const).map(p => (
-                      <span key={p} className={`absolute ${p} text-gold/25 text-xs`}>✦</span>
-                    ))}
+          <div className="animate-fade-in-up">
+            <div className="text-center mb-6">
+              <p className="font-roboto text-xs text-foreground/40 tracking-widest uppercase mb-2">Ваша карта</p>
+              <div className={`transition-all duration-700 ${flipped ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
+                <div className="text-7xl mb-4">{card.emoji}</div>
+                <h3 className="font-playfair text-4xl font-medium gold-text">{card.name}</h3>
+                <p className="font-roboto text-xs text-foreground/30 tracking-widest mt-1">{card.sym} · Старший Аркан</p>
+              </div>
+            </div>
+            <div className="mystical-card rounded-sm p-6 mb-4">
+              <p className="font-playfair text-lg italic text-foreground/70 leading-relaxed text-center">
+                «{card.short}»
+              </p>
+            </div>
+            {showFull ? (
+              <div className="mystical-card rounded-sm p-6 mb-4 animate-fade-in">
+                <p className="font-roboto text-xs tracking-widest uppercase text-gold/40 mb-3">Полная расшифровка</p>
+                <p className="font-playfair text-base text-foreground/65 leading-relaxed">{card.full}</p>
+              </div>
+            ) : (
+              <div className="mystical-card rounded-sm p-6 mb-4 relative overflow-hidden">
+                <div className="absolute inset-0 backdrop-blur-sm bg-background/40 flex items-center justify-center z-10 rounded-sm">
+                  <div className="text-center px-4">
+                    <p className="font-playfair text-lg italic text-foreground/60 mb-3">Полная расшифровка закрыта</p>
+                    <button onClick={() => setStep("upsell")}
+                      className="font-roboto text-xs px-6 py-2.5 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-widest uppercase font-medium">
+                      Открыть за 199 ₽
+                    </button>
                   </div>
                 </div>
-              </div>
-            </div>
-            <h3 className="font-playfair text-3xl font-medium text-gold mb-3">{card.name}</h3>
-            <p className="font-playfair text-lg italic text-foreground/65 leading-relaxed mb-6 max-w-md mx-auto">{card.short}</p>
-            {showFull && (
-              <div className="mystical-card rounded-sm p-6 mb-6 text-left animate-fade-in">
-                <p className="font-roboto text-sm text-foreground/60 leading-relaxed">{card.full}</p>
+                <p className="font-playfair text-base text-foreground/20 leading-relaxed select-none">{card.full}</p>
               </div>
             )}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              {!showFull && (
-                <button onClick={() => setShowFull(true)}
-                  className="font-roboto text-sm px-6 py-3 border border-gold/30 text-gold/70 hover:border-gold hover:text-gold transition-all rounded-sm tracking-wider">
-                  Читать полностью
-                </button>
-              )}
+            <div className="flex gap-3">
+              <button onClick={handleShare}
+                className="flex-1 font-roboto text-xs py-3 border border-gold/25 text-gold/60 hover:bg-gold/8 transition-all rounded-sm tracking-wider uppercase flex items-center justify-center gap-2">
+                <Icon name="Share2" size={13} />
+                {shared ? "Скопировано!" : "Поделиться"}
+              </button>
               <button onClick={() => setStep("upsell")}
-                className="animate-pulse-glow font-roboto text-sm px-7 py-3 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-wider font-medium">
-                ✨ Сохранить в сертификат — 199 ₽
+                className="flex-1 animate-pulse-glow font-roboto text-xs py-3 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-wider uppercase font-medium">
+                Получить PDF — 199 ₽
               </button>
             </div>
-            {/* Кнопка «Поделиться» — критерий 6.1 */}
-            <button onClick={handleShare}
-              className="mt-4 flex items-center gap-2 mx-auto font-roboto text-xs text-foreground/35 hover:text-gold/60 transition-colors tracking-wider">
-              <Icon name="Share2" size={13} />
-              {shared ? "Ссылка скопирована!" : "Поделиться результатом"}
-            </button>
-            <button onClick={reset} className="mt-2 font-roboto text-xs text-foreground/20 hover:text-foreground/45 transition-colors tracking-wider block mx-auto">
-              Новый расклад
+            <button onClick={reset}
+              className="mt-4 font-roboto text-xs text-foreground/25 hover:text-foreground/50 transition-colors tracking-wider block mx-auto">
+              ← Новый расклад
             </button>
           </div>
         )}
 
-        {/* Step 4 — Upsell */}
+        {/* Step 4 — Upsell / Payment */}
         {step === "upsell" && card && (
-          <div className="animate-fade-in-up">
-            <div className="mystical-card rounded-sm p-8">
-              <div className="text-center mb-6">
-                <div className="text-4xl mb-3">{card.emoji}</div>
+          <div className="animate-fade-in-up" id="cert-preview">
+            <div className="mystical-card rounded-sm p-6">
+              <div className="text-center mb-5">
+                <span className="text-4xl">{card.emoji}</span>
                 <h3 className="font-playfair text-2xl text-gold mb-1">Именной PDF-сертификат</h3>
                 <p className="font-playfair text-lg italic text-foreground/50">Карта «{card.name}» для вас</p>
               </div>
-              {/* Превью сертификата — критерий 2.2 */}
+              {/* Превью сертификата */}
               <div className="rounded-sm p-5 mb-4 relative overflow-hidden"
                 style={{ background: "linear-gradient(145deg, hsl(270,25%,9%), hsl(270,35%,13%))", border: "1px solid hsla(46,100%,60%,0.42)" }}>
                 <div className="absolute inset-0 opacity-5" style={{ background: "radial-gradient(ellipse at 50% 0%, hsl(270,60%,40%), transparent 70%)" }} />
@@ -378,16 +430,47 @@ const Reading = () => {
                 ))}
               </ul>
               <Divider />
-              <div className="mt-5">
-                <label className="font-roboto text-xs tracking-widest uppercase text-foreground/45 block mb-2">Ваше имя для сертификата</label>
-                <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Например: Мария"
-                  className="w-full bg-transparent border border-gold/25 focus:border-gold/60 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/25 transition-colors rounded-sm mb-4" />
+              <div className="mt-5 space-y-3">
+                <div>
+                  <label className="font-roboto text-xs tracking-widest uppercase text-foreground/45 block mb-2">Email для сертификата</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder="Email для сертификата"
+                    className="w-full bg-transparent border border-gold/25 focus:border-gold/60 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/25 transition-colors rounded-sm"
+                  />
+                </div>
+                <div>
+                  <label className="font-roboto text-xs tracking-widest uppercase text-foreground/45 block mb-2">Ваше имя для сертификата</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    placeholder="Например: Мария"
+                    className="w-full bg-transparent border border-gold/25 focus:border-gold/60 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/25 transition-colors rounded-sm"
+                  />
+                </div>
+                {payError && (
+                  <p className="font-roboto text-xs text-red-400 text-center">{payError}</p>
+                )}
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-playfair text-3xl gold-text">199 ₽</span>
                   <span className="font-roboto text-xs text-foreground/30 line-through">1 500 ₽ у таролога</span>
                 </div>
-                <button className="w-full animate-pulse-glow font-roboto text-sm py-4 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-[0.15em] uppercase font-medium">
-                  Хочу правду — 199 ₽
+                <button
+                  onClick={handlePayment}
+                  disabled={loading}
+                  className="w-full animate-pulse-glow font-roboto text-sm py-4 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-[0.15em] uppercase font-medium flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <>
+                      <Icon name="Loader" size={16} className="animate-spin" />
+                      Оплата...
+                    </>
+                  ) : (
+                    "Хочу правду — 199 ₽"
+                  )}
                 </button>
                 <p className="font-roboto text-xs text-foreground/30 text-center mt-2">Без подписки · Разовая покупка · Мгновенно на email</p>
               </div>
@@ -417,17 +500,19 @@ const Reading = () => {
 
 // ─── SERVICES ─────────────────────────────────────────────────────────────────
 const Services = () => (
-  <section id="services" className="py-28 px-6 section-gradient">
+  <section id="services" className="py-16 px-6 section-gradient">
     <div className="max-w-6xl mx-auto">
-      <div className="text-center mb-14">
+      <div className="text-center mb-10">
         <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Линейка услуг ✦</p>
         <h2 className="font-playfair text-5xl md:text-6xl font-medium">Услуги и цены</h2>
         <Divider />
-        <p className="font-playfair text-lg text-foreground/45 italic mt-3">От 199 ₽ до VIP-диагностики</p>
+        <p className="font-playfair text-lg text-foreground/45 italic mt-3">
+          Выберите глубину погружения — от мгновенного PDF до VIP-сессии с тарологом
+        </p>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {SERVICES_LIST.map((s) => (
-          <div key={s.title} className={`mystical-card rounded-sm p-7 flex flex-col gap-4 relative ${s.hot ? "border-gold/30" : ""}`}>
+          <div key={s.title} className={`mystical-card rounded-sm p-5 flex flex-col gap-4 relative ${s.hot ? "border-gold/30" : ""}`}>
             {s.hot && (
               <div className="absolute -top-3 left-6 bg-gold text-background font-roboto text-xs px-3 py-1 rounded-sm tracking-widest uppercase font-medium">Хит</div>
             )}
@@ -455,7 +540,7 @@ const Services = () => (
       </div>
 
       {/* Subscription */}
-      <div className="mt-8 p-8 rounded-sm relative overflow-hidden"
+      <div className="mt-8 p-6 rounded-sm relative overflow-hidden"
         style={{ background: "linear-gradient(135deg, hsl(270,28%,10%), hsl(270,20%,8%))", border: "1px solid hsla(46,100%,60%,0.22)" }}>
         <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-5"
           style={{ background: "radial-gradient(ellipse at right, hsl(270,50%,40%), transparent)" }} />
@@ -480,19 +565,19 @@ const Services = () => (
 
 // ─── HOW IT WORKS ─────────────────────────────────────────────────────────────
 const HowItWorks = () => (
-  <section className="py-24 px-6" style={{ background: "hsl(270,25%,5%)" }}>
+  <section className="py-14 px-6" style={{ background: "hsl(270,25%,5%)" }}>
     <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-14">
+      <div className="text-center mb-10">
         <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Процесс ✦</p>
         <h2 className="font-playfair text-4xl md:text-5xl font-medium">Как это работает</h2>
         <Divider />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {[
-          { n: "01", icon: "🎯", t: "Выберите тему",  d: "Любовь, деньги, карьера или просто вопрос судьбы" },
-          { n: "02", icon: "🃏", t: "Вытяните карту", d: "Кликните на колоду — карта выпадет мгновенно" },
-          { n: "03", icon: "📖", t: "Получите ответ", d: "Краткая трактовка бесплатно, полная — за 199 ₽" },
-          { n: "04", icon: "📄", t: "Сохраните PDF",  d: "Именной сертификат приходит на email за минуту" },
+          { n: "01", icon: "🎯", t: "Выберите тему",  d: "Любовь, деньги, карьера или просто вопрос судьбы. Сфокусируйтесь на том, что волнует вас больше всего." },
+          { n: "02", icon: "🃏", t: "Вытяните карту", d: "Кликните на колоду — карта выпадет мгновенно. Доверьтесь интуиции и первому ощущению." },
+          { n: "03", icon: "📖", t: "Получите ответ", d: "Краткая трактовка бесплатно, полная — за 199 ₽. Глубокая расшифровка откроет скрытые смыслы." },
+          { n: "04", icon: "📄", t: "Сохраните PDF",  d: "Именной сертификат приходит на email за минуту. Красивый документ остаётся с вами навсегда." },
         ].map(({ n, icon, t, d }) => (
           <div key={n} className="text-center">
             <div className="font-playfair text-5xl text-gold/25 font-medium mb-4 leading-none">{n}</div>
@@ -508,16 +593,19 @@ const HowItWorks = () => (
 
 // ─── REVIEWS ──────────────────────────────────────────────────────────────────
 const Reviews = () => (
-  <section id="reviews" className="py-28 px-6 section-gradient">
+  <section id="reviews" className="py-16 px-6 section-gradient">
     <div className="max-w-5xl mx-auto">
-      <div className="text-center mb-14">
+      <div className="text-center mb-10">
         <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Истории клиентов ✦</p>
         <h2 className="font-playfair text-5xl md:text-6xl font-medium">Отзывы</h2>
         <Divider />
+        <p className="font-playfair text-lg text-foreground/45 italic mt-3">
+          Более 2 400 человек уже нашли ответы. Вот что они говорят:
+        </p>
       </div>
       <div className="grid md:grid-cols-2 gap-5">
         {REVIEWS_LIST.map((r) => (
-          <div key={r.name} className="mystical-card rounded-sm p-7 flex flex-col gap-4">
+          <div key={r.name} className="mystical-card rounded-sm p-5 flex flex-col gap-4">
             <div className="flex justify-between items-start">
               <div>
                 <p className="font-playfair text-lg font-medium">{r.name}</p>
@@ -539,17 +627,17 @@ const Reviews = () => (
 
 // ─── CONTACTS ─────────────────────────────────────────────────────────────────
 const Contacts = () => (
-  <section id="contacts" className="py-28 px-6 relative overflow-hidden" style={{ background: "hsl(270,25%,5%)" }}>
+  <section id="contacts" className="py-16 px-6 relative overflow-hidden" style={{ background: "hsl(270,25%,5%)" }}>
     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-[0.06] pointer-events-none"
       style={{ background: "radial-gradient(ellipse, hsl(270,50%,40%), transparent)" }} />
     <div className="max-w-xl mx-auto relative z-10">
-      <div className="text-center mb-12">
+      <div className="text-center mb-8">
         <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Записаться ✦</p>
         <h2 className="font-playfair text-5xl md:text-6xl font-medium">Контакты</h2>
         <Divider />
         <p className="font-playfair text-xl italic text-foreground/45 mt-3">Напишите — отвечаю в течение часа</p>
       </div>
-      <div className="mystical-card rounded-sm p-8">
+      <div className="mystical-card rounded-sm p-6">
         <div className="space-y-5">
           {[
             { l: "Ваше имя", t: "text", p: "Как вас зовут?" },
@@ -640,7 +728,7 @@ const LegalModal = ({ type, onClose }: { type: "privacy" | "offer"; onClose: () 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-      <div className="relative z-10 max-w-lg w-full mystical-card rounded-sm p-8 max-h-[80vh] overflow-y-auto"
+      <div className="relative z-10 max-w-lg w-full mystical-card rounded-sm p-6 max-h-[80vh] overflow-y-auto"
         onClick={e => e.stopPropagation()}>
         <button onClick={onClose} className="absolute top-4 right-4 text-foreground/40 hover:text-foreground transition-colors">
           <Icon name="X" size={18} />

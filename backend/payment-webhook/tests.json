@@ -1,0 +1,19 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Non-payment event returns ok",
+      "method": "POST",
+      "path": "/",
+      "body": {"event": "payment.waiting_for_capture", "object": {}},
+      "expectedStatus": 200,
+      "expectedBody": "ok",
+      "bodyMatcher": "partial"
+    }
+  ]
+}
