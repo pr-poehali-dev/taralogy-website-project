@@ -1,43 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Roboto:wght@300;400;500;600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 240 20% 4%;
-    --foreground: 45 30% 90%;
+    --background: 270 25% 5%;
+    --foreground: 46 40% 92%;
 
-    --card: 240 18% 7%;
-    --card-foreground: 45 30% 90%;
+    --card: 270 22% 9%;
+    --card-foreground: 46 40% 92%;
 
-    --popover: 240 18% 7%;
-    --popover-foreground: 45 30% 90%;
+    --popover: 270 22% 9%;
+    --popover-foreground: 46 40% 92%;
 
-    --primary: 45 70% 60%;
-    --primary-foreground: 240 20% 4%;
+    --primary: 46 100% 60%;
+    --primary-foreground: 270 50% 10%;
 
-    --secondary: 270 30% 20%;
-    --secondary-foreground: 45 30% 90%;
+    --secondary: 270 50% 25%;
+    --secondary-foreground: 46 40% 92%;
 
-    --muted: 240 15% 12%;
-    --muted-foreground: 240 10% 55%;
+    --muted: 270 20% 14%;
+    --muted-foreground: 270 10% 55%;
 
-    --accent: 270 50% 35%;
-    --accent-foreground: 45 30% 90%;
+    --accent: 270 50% 40%;
+    --accent-foreground: 46 40% 92%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 45 30% 90%;
+    --destructive-foreground: 46 40% 92%;
 
-    --border: 270 20% 18%;
-    --input: 270 20% 18%;
-    --ring: 45 70% 60%;
+    --border: 270 30% 22%;
+    --input: 270 30% 22%;
+    --ring: 46 100% 60%;
 
     --radius: 0.5rem;
 
-    --gold: 45 70% 60%;
-    --amethyst: 270 50% 55%;
-    --deep: 240 20% 4%;
-    --midnight: 240 18% 7%;
+    --gold: 46 100% 60%;
+    --amethyst: 270 50% 40%;
+    --deep: 270 25% 5%;
+    --midnight: 270 22% 9%;
   }
 }
 
@@ -52,7 +54,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Golos Text", sans-serif;
+    font-family: "Roboto", "Golos Text", sans-serif;
     overflow-x: hidden;
   }
 }
@@ -96,13 +98,13 @@
   0%,
   100% {
     box-shadow:
-      0 0 15px rgba(180, 130, 60, 0.3),
-      0 0 30px rgba(130, 80, 180, 0.15);
+      0 0 15px rgba(255, 204, 51, 0.35),
+      0 0 30px rgba(102, 51, 153, 0.2);
   }
   50% {
     box-shadow:
-      0 0 25px rgba(180, 130, 60, 0.6),
-      0 0 50px rgba(130, 80, 180, 0.3);
+      0 0 28px rgba(255, 204, 51, 0.7),
+      0 0 55px rgba(102, 51, 153, 0.4);
   }
 }
 
@@ -154,9 +156,9 @@
 .animate-shimmer {
   background: linear-gradient(
     90deg,
-    hsl(45, 70%, 60%) 0%,
-    hsl(45, 70%, 85%) 50%,
-    hsl(45, 70%, 60%) 100%
+    hsl(46, 100%, 60%) 0%,
+    hsl(46, 100%, 82%) 50%,
+    hsl(46, 100%, 60%) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -183,6 +185,12 @@
 .font-golos {
   font-family: "Golos Text", sans-serif;
 }
+.font-playfair {
+  font-family: "Playfair Display", serif;
+}
+.font-roboto {
+  font-family: "Roboto", sans-serif;
+}
 
 .gold-text {
   color: hsl(var(--gold));
@@ -192,41 +200,41 @@
 }
 
 .gold-border {
-  border: 1px solid hsla(45, 70%, 60%, 0.3);
+  border: 1px solid hsla(46, 100%, 60%, 0.35);
 }
 
 .mystical-card {
   background: linear-gradient(
     135deg,
-    hsl(240, 18%, 8%) 0%,
-    hsl(270, 15%, 10%) 100%
+    hsl(270, 22%, 10%) 0%,
+    hsl(270, 30%, 13%) 100%
   );
-  border: 1px solid hsla(45, 70%, 60%, 0.2);
+  border: 1px solid hsla(46, 100%, 60%, 0.2);
   transition: all 0.4s ease;
 }
 
 .mystical-card:hover {
-  border-color: hsla(45, 70%, 60%, 0.5);
+  border-color: hsla(46, 100%, 60%, 0.55);
   box-shadow:
-    0 8px 40px rgba(130, 80, 180, 0.2),
-    0 0 20px rgba(180, 130, 60, 0.1);
+    0 8px 40px rgba(102, 51, 153, 0.25),
+    0 0 20px rgba(255, 204, 51, 0.12);
   transform: translateY(-4px);
 }
 
 .hero-gradient {
   background: radial-gradient(
     ellipse at 50% 0%,
-    hsl(270, 40%, 12%) 0%,
-    hsl(240, 20%, 4%) 70%
+    hsl(270, 50%, 14%) 0%,
+    hsl(270, 25%, 5%) 70%
   );
 }
 
 .section-gradient {
   background: linear-gradient(
     180deg,
-    hsl(240, 20%, 4%) 0%,
-    hsl(270, 18%, 6%) 50%,
-    hsl(240, 20%, 4%) 100%
+    hsl(270, 25%, 5%) 0%,
+    hsl(270, 30%, 8%) 50%,
+    hsl(270, 25%, 5%) 100%
   );
 }
 
@@ -235,16 +243,16 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    hsla(45, 70%, 60%, 0.4) 30%,
-    hsla(270, 50%, 55%, 0.4) 70%,
+    hsla(46, 100%, 60%, 0.45) 30%,
+    hsla(270, 50%, 40%, 0.5) 70%,
     transparent 100%
   );
 }
 
 .nav-blur {
   backdrop-filter: blur(12px);
-  background: hsla(240, 20%, 4%, 0.85);
-  border-bottom: 1px solid hsla(45, 70%, 60%, 0.15);
+  background: hsla(270, 25%, 5%, 0.88);
+  border-bottom: 1px solid hsla(46, 100%, 60%, 0.18);
 }
 
 /* Star field */

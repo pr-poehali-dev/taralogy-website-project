@@ -22,6 +22,8 @@ export default {
 			fontFamily: {
 				'cormorant': ['Cormorant', 'serif'],
 				'golos': ['Golos Text', 'sans-serif'],
+				'playfair': ['"Playfair Display"', 'serif'],
+				'roboto': ['Roboto', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

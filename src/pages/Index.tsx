@@ -37,19 +37,24 @@ const TOPICS = [
 ];
 
 const SERVICES_LIST = [
-  { icon: "🃏", title: "Расклад «Да/Нет»",    desc: "Конкретный ответ на один вопрос + карта-советник", price: "500 ₽",   dur: "15 мин",     hot: false },
-  { icon: "💞", title: "Чувства партнёра",     desc: "3 карты: что думает, чувствует и скрывает",        price: "990 ₽",   dur: "30 мин",     hot: true  },
-  { icon: "🌿", title: "Кельтский крест",      desc: "10 карт — полная картина любой ситуации",          price: "1 990 ₽", dur: "60 мин",     hot: false },
-  { icon: "⭐", title: "Расклад на год",        desc: "12 карт по месяцам — карта предстоящего года",    price: "2 990 ₽", dur: "90 мин",     hot: true  },
-  { icon: "🔮", title: "VIP-диагностика",      desc: "Видео + PDF + сертификат — полный разбор жизни",   price: "7 500 ₽", dur: "120 мин",    hot: false },
-  { icon: "✨", title: "PDF-сертификат",       desc: "Именной документ с полной расшифровкой карты",     price: "199 ₽",   dur: "мгновенно",  hot: true  },
+  { icon: "🃏", title: "Расклад «Да/Нет»",    desc: "Конкретный ответ на один вопрос + карта-советник", price: "199 ₽",   oldPrice: "500 ₽",   dur: "15 мин",     hot: false },
+  { icon: "💞", title: "Чувства партнёра",     desc: "3 карты: что думает, чувствует и скрывает",        price: "790 ₽",   oldPrice: "990 ₽",   dur: "30 мин",     hot: true  },
+  { icon: "🌿", title: "Кельтский крест",      desc: "10 карт — полная картина любой ситуации",          price: "1 590 ₽", oldPrice: null,       dur: "60 мин",     hot: false },
+  { icon: "⭐", title: "Расклад на год",        desc: "12 карт по месяцам — карта предстоящего года",    price: "2 390 ₽", oldPrice: null,       dur: "90 мин",     hot: true  },
+  { icon: "🔮", title: "VIP-диагностика",      desc: "Видео + PDF + сертификат — полный разбор жизни",   price: "6 990 ₽", oldPrice: "7 500 ₽", dur: "120 мин",    hot: false },
+  { icon: "✨", title: "PDF-сертификат",       desc: "Именной документ с полной расшифровкой карты",     price: "199 ₽",   oldPrice: "699 ₽",   dur: "мгновенно",  hot: true  },
 ];
 
 const REVIEWS_LIST = [
-  { name: "Алина М.",    city: "Москва",       stars: 5, text: "Сделала расклад перед собеседованием — карта сказала «не бояться». Прошла! Сохранила PDF, перечитываю в трудные моменты.",  service: "PDF-сертификат"   },
-  { name: "Марина К.",   city: "СПб",          stars: 5, text: "Подарила подруге сертификат на «Чувства партнёра». Она расплакалась от точности. Теперь обе постоянные клиентки!",          service: "Чувства партнёра" },
-  { name: "Светлана Р.", city: "Екатеринбург", stars: 5, text: "Расклад на год показал всё как по нотам. Февраль, апрель и сентябрь случились именно так, как было описано.",              service: "Расклад на год"   },
-  { name: "Наташа В.",   city: "Казань",       stars: 5, text: "Кельтский крест дал мне ответ, который я искала три года. Теперь точно знаю, что делать с бизнесом.",                     service: "Кельтский крест"  },
+  { name: "★ Клиент из Москвы",         city: "",               stars: 5, text: "Сделала расклад перед собеседованием — карта сказала «не бояться». Прошла! Сохранила PDF, перечитываю в трудные моменты.",  service: "PDF-сертификат"   },
+  { name: "★ Клиент из Санкт-Петербурга", city: "",             stars: 5, text: "Подарила подруге сертификат на «Чувства партнёра». Она расплакалась от точности. Теперь обе постоянные клиентки!",          service: "Чувства партнёра" },
+  { name: "★ Клиент из Екатеринбурга",  city: "",               stars: 5, text: "Расклад на год показал всё как по нотам. Февраль, апрель и сентябрь случились именно так, как было описано.",              service: "Расклад на год"   },
+  { name: "★ Клиент из Казани",         city: "",               stars: 5, text: "Кельтский крест дал мне ответ, который я искала три года. Теперь точно знаю, что делать с бизнесом.",                     service: "Кельтский крест"  },
+  { name: "★ Клиент из Новосибирска",   city: "",               stars: 5, text: "Очень точно описала мою ситуацию на работе. Даже детали совпали. Буду заказывать снова перед важными решениями.",         service: "Расклад «Да/Нет»" },
+  { name: "★ Клиент из Краснодара",     city: "",               stars: 5, text: "Скептически относилась к Таро, но PDF-сертификат заказала ради интереса. Была поражена точностью. Теперь верю!",          service: "PDF-сертификат"   },
+  { name: "★ Клиент из Ростова-на-Дону",city: "",               stars: 5, text: "Муж смотрел через плечо и тоже захотел расклад. Теперь всей семьёй проверяем важные решения через карты.",                service: "Расклад на год"   },
+  { name: "★ Клиент из Тюмени",         city: "",               stars: 5, text: "VIP-диагностика превзошла все ожидания. Видео разбор + PDF — очень ценно. Пересматриваю периодически.",                   service: "VIP-диагностика"  },
+  { name: "★ Клиент из Уфы",            city: "",               stars: 5, text: "Заказала «Чувства партнёра» перед сложным разговором. Расклад помог понять, как лучше начать диалог. Всё получилось!",    service: "Чувства партнёра" },
 ];
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
@@ -124,19 +129,19 @@ const Hero = () => (
   <section className="relative min-h-screen hero-gradient flex items-center justify-center overflow-hidden pt-20">
     <div className="absolute inset-0 pointer-events-none">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.07]"
-        style={{ background: "radial-gradient(circle, hsl(270,60%,55%) 0%, transparent 65%)" }} />
+        style={{ background: "radial-gradient(circle, hsl(270,50%,40%) 0%, transparent 65%)" }} />
     </div>
     {/* Spinning mandala */}
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] animate-spin-slow opacity-[0.04] pointer-events-none select-none">
       <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         {[0, 30, 60, 90, 120, 150].map((deg) => (
           <g key={deg} transform={`rotate(${deg} 100 100)`}>
-            <ellipse cx="100" cy="100" rx="85" ry="22" stroke="hsl(45,70%,60%)" strokeWidth="0.5" />
+            <ellipse cx="100" cy="100" rx="85" ry="22" stroke="hsl(46,100%,60%)" strokeWidth="0.5" />
           </g>
         ))}
-        <circle cx="100" cy="100" r="10" stroke="hsl(45,70%,60%)" strokeWidth="0.8" />
-        <circle cx="100" cy="100" r="65" stroke="hsl(270,50%,55%)" strokeWidth="0.4" strokeDasharray="4 6" />
-        <circle cx="100" cy="100" r="85" stroke="hsl(45,70%,60%)" strokeWidth="0.3" strokeDasharray="2 10" />
+        <circle cx="100" cy="100" r="10" stroke="hsl(46,100%,60%)" strokeWidth="0.8" />
+        <circle cx="100" cy="100" r="65" stroke="hsl(270,50%,40%)" strokeWidth="0.4" strokeDasharray="4 6" />
+        <circle cx="100" cy="100" r="85" stroke="hsl(46,100%,60%)" strokeWidth="0.3" strokeDasharray="2 10" />
       </svg>
     </div>
 
@@ -218,7 +223,7 @@ const Reading = () => {
   };
 
   return (
-    <section id="reading" className="relative py-28 px-6" style={{ background: "hsl(240,20%,4%)" }}>
+    <section id="reading" className="relative py-28 px-6" style={{ background: "hsl(270,25%,5%)" }}>
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-12">
           <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Бесплатный расклад ✦</p>
@@ -249,7 +254,7 @@ const Reading = () => {
                 { icon: "Lock",        text: "Конфиденциально" },
               ].map(({ icon, text }) => (
                 <div key={text} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm"
-                  style={{ background: "hsla(38,90%,51%,0.06)", border: "1px solid hsla(38,90%,51%,0.15)" }}>
+                  style={{ background: "hsla(46,100%,60%,0.07)", border: "1px solid hsla(46,100%,60%,0.18)" }}>
                   <Icon name={icon} size={12} className="text-gold/55" />
                   <span className="font-roboto text-xs text-foreground/45">{text}</span>
                 </div>
@@ -347,7 +352,7 @@ const Reading = () => {
               </div>
               {/* Превью сертификата — критерий 2.2 */}
               <div className="rounded-sm p-5 mb-4 relative overflow-hidden"
-                style={{ background: "linear-gradient(145deg, hsl(232,22%,9%), hsl(270,20%,12%))", border: "1px solid hsla(38,90%,51%,0.4)" }}>
+                style={{ background: "linear-gradient(145deg, hsl(270,25%,9%), hsl(270,35%,13%))", border: "1px solid hsla(46,100%,60%,0.42)" }}>
                 <div className="absolute inset-0 opacity-5" style={{ background: "radial-gradient(ellipse at 50% 0%, hsl(270,60%,40%), transparent 70%)" }} />
                 <p className="font-roboto text-xs tracking-[0.3em] uppercase text-gold/40 text-center mb-3">Предварительный просмотр</p>
                 <div className="flex items-center gap-4">
@@ -434,7 +439,12 @@ const Services = () => (
             <div className="flex-1" />
             <Divider slim />
             <div className="flex items-center justify-between">
-              <span className="font-playfair text-2xl gold-text font-medium">{s.price}</span>
+              <div className="flex flex-col">
+                {s.oldPrice && (
+                  <span className="font-roboto text-xs text-foreground/30 line-through">{s.oldPrice}</span>
+                )}
+                <span className="font-playfair text-2xl gold-text font-medium">{s.price}</span>
+              </div>
               <span className="font-roboto text-xs text-foreground/30 tracking-wider">{s.dur}</span>
             </div>
             <a href="#contacts" className="mt-1 font-roboto text-xs text-center py-2.5 border border-gold/25 text-gold/70 hover:bg-gold hover:text-background hover:border-gold transition-all rounded-sm tracking-[0.15em] uppercase">
@@ -446,9 +456,9 @@ const Services = () => (
 
       {/* Subscription */}
       <div className="mt-8 p-8 rounded-sm relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, hsl(270,25%,10%), hsl(240,18%,8%))", border: "1px solid hsla(45,70%,60%,0.2)" }}>
+        style={{ background: "linear-gradient(135deg, hsl(270,28%,10%), hsl(270,20%,8%))", border: "1px solid hsla(46,100%,60%,0.22)" }}>
         <div className="absolute right-0 top-0 bottom-0 w-1/3 opacity-5"
-          style={{ background: "radial-gradient(ellipse at right, hsl(270,60%,55%), transparent)" }} />
+          style={{ background: "radial-gradient(ellipse at right, hsl(270,50%,40%), transparent)" }} />
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <p className="font-roboto text-xs tracking-[0.35em] uppercase text-gold/50 mb-2">✦ Специальное предложение</p>
@@ -470,7 +480,7 @@ const Services = () => (
 
 // ─── HOW IT WORKS ─────────────────────────────────────────────────────────────
 const HowItWorks = () => (
-  <section className="py-24 px-6" style={{ background: "hsl(240,20%,4%)" }}>
+  <section className="py-24 px-6" style={{ background: "hsl(270,25%,5%)" }}>
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-14">
         <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Процесс ✦</p>
@@ -529,9 +539,9 @@ const Reviews = () => (
 
 // ─── CONTACTS ─────────────────────────────────────────────────────────────────
 const Contacts = () => (
-  <section id="contacts" className="py-28 px-6 relative overflow-hidden" style={{ background: "hsl(240,20%,4%)" }}>
+  <section id="contacts" className="py-28 px-6 relative overflow-hidden" style={{ background: "hsl(270,25%,5%)" }}>
     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-[0.06] pointer-events-none"
-      style={{ background: "radial-gradient(ellipse, hsl(270,50%,50%), transparent)" }} />
+      style={{ background: "radial-gradient(ellipse, hsl(270,50%,40%), transparent)" }} />
     <div className="max-w-xl mx-auto relative z-10">
       <div className="text-center mb-12">
         <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-4">✦ Записаться ✦</p>
@@ -571,9 +581,10 @@ const Contacts = () => (
       </div>
       <div className="flex flex-col sm:flex-row justify-center gap-8 mt-10">
         {[
-          { icon: "Send",      label: "Telegram",  val: "@arcana_taro" },
-          { icon: "Instagram", label: "Instagram", val: "@arcana.taro" },
-          { icon: "Phone",     label: "WhatsApp",  val: "+7 (999) 000-00-00" },
+          { icon: "Send",        label: "Telegram",  val: "@arcana_taro" },
+          { icon: "MessageCircle", label: "VK",      val: "vk.com/arcana_taro" },
+          { icon: "Smartphone",  label: "MAX",       val: "MAX Messenger" },
+          { icon: "Phone",       label: "WhatsApp",  val: "+7 (999) 000-00-00" },
         ].map((c) => (
           <div key={c.label} className="flex items-center gap-3">
             <Icon name={c.icon} size={15} className="text-gold/50" />
@@ -593,7 +604,7 @@ const EmailSubscribe = () => {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
   return (
-    <section className="py-16 px-6 border-t border-gold/10" style={{ background: "hsl(240,22%,3%)" }}>
+    <section className="py-16 px-6 border-t border-gold/10" style={{ background: "hsl(270,25%,4%)" }}>
       <div className="max-w-xl mx-auto text-center">
         <p className="font-roboto text-xs tracking-[0.4em] uppercase text-gold/45 mb-3">✦ Рассылка ✦</p>
         <h3 className="font-playfair text-3xl font-medium mb-2">Расклад недели — бесплатно</h3>
