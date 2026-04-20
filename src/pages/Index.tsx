@@ -631,8 +631,8 @@ const Reviews = () => (
         </div>
       </div>
       <div className="grid md:grid-cols-2 gap-5">
-        {REVIEWS_LIST.map((r) => (
-          <div key={r.name} className="mystical-card rounded-sm p-5 flex flex-col gap-4">
+        {REVIEWS_LIST.map((r, i) => (
+          <div key={i} className="mystical-card rounded-sm p-5 flex flex-col gap-4">
             <div className="flex justify-between items-start">
               <div>
                 <p className="font-playfair text-lg font-medium">{r.name}</p>
@@ -653,7 +653,35 @@ const Reviews = () => (
 );
 
 // ─── CONTACTS ─────────────────────────────────────────────────────────────────
-const Contacts = () => (
+const SEND_CONTACT_URL = "https://functions.poehali.dev/f2f03086-5943-48eb-8fc9-420e6499b8ef";
+
+const Contacts = () => {
+  const [cName, setCName] = useState("");
+  const [cEmail, setCEmail] = useState("");
+  const [cService, setCService] = useState("");
+  const [cMessage, setCMessage] = useState("");
+  const [cLoading, setCLoading] = useState(false);
+  const [cDone, setCDone] = useState(false);
+  const [cError, setCError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!cEmail) { setCError("Укажите email для связи"); return; }
+    setCLoading(true); setCError("");
+    try {
+      const res = await fetch(SEND_CONTACT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: cName, email: cEmail, service: cService, message: cMessage }),
+      });
+      const data = await res.json();
+      if (data.ok) { setCDone(true); }
+      else { setCError(data.error || "Ошибка. Попробуйте ещё раз."); }
+    } catch { setCError("Ошибка соединения. Проверьте интернет."); }
+    finally { setCLoading(false); }
+  };
+
+  return (
   <section id="contacts" className="py-16 px-6 relative overflow-hidden" style={{ background: "hsl(270,25%,5%)" }}>
     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-[0.06] pointer-events-none"
       style={{ background: "radial-gradient(ellipse, hsl(270,50%,40%), transparent)" }} />
@@ -665,41 +693,50 @@ const Contacts = () => (
         <p className="font-playfair text-xl italic text-foreground/45 mt-3">Напишите — отвечаю в течение часа</p>
       </div>
       <div className="mystical-card rounded-sm p-6">
-        <div className="space-y-5">
-          {[
-            { l: "Ваше имя", t: "text", p: "Как вас зовут?" },
-            { l: "Telegram / WhatsApp", t: "text", p: "@username или номер" },
-            { l: "Email для PDF-сертификата", t: "email", p: "your@email.com" },
-          ].map(({ l, t, p }) => (
-            <div key={l}>
-              <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">{l}</label>
-              <input type={t} placeholder={p}
+        {cDone ? (
+          <div className="text-center py-8 animate-fade-in">
+            <div className="text-4xl mb-4">✦</div>
+            <h3 className="font-playfair text-2xl gold-text mb-2">Заявка отправлена!</h3>
+            <p className="font-roboto text-sm text-foreground/50">Вернёмся к вам в течение часа на указанный email.</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">Ваше имя</label>
+              <input type="text" value={cName} onChange={e => setCName(e.target.value)} placeholder="Как вас зовут?"
                 className="w-full bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/22 transition-colors rounded-sm" />
             </div>
-          ))}
-          <div>
-            <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">Услуга</label>
-            <select className="w-full bg-card border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground/60 transition-colors rounded-sm">
-              <option value="">Выберите...</option>
-              {SERVICES_LIST.map(s => <option key={s.title}>{s.title} — {s.price}</option>)}
-            </select>
-          </div>
-          <div>
-            <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">Вопрос или комментарий</label>
-            <textarea rows={3} placeholder="Опишите свою ситуацию..."
-              className="w-full bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/22 transition-colors rounded-sm resize-none" />
-          </div>
-          <button className="animate-pulse-glow w-full font-roboto text-sm py-4 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-[0.18em] uppercase font-medium">
-            Отправить заявку
-          </button>
-        </div>
+            <div>
+              <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">Email для ответа</label>
+              <input type="email" value={cEmail} onChange={e => setCEmail(e.target.value)} placeholder="your@email.com" required
+                className="w-full bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/22 transition-colors rounded-sm" />
+            </div>
+            <div>
+              <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">Услуга</label>
+              <select value={cService} onChange={e => setCService(e.target.value)}
+                className="w-full bg-card border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground/60 transition-colors rounded-sm">
+                <option value="">Выберите...</option>
+                {SERVICES_LIST.map(s => <option key={s.title}>{s.title} — {s.price}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="font-roboto text-xs tracking-widest uppercase text-foreground/40 block mb-2">Вопрос или комментарий</label>
+              <textarea rows={3} value={cMessage} onChange={e => setCMessage(e.target.value)} placeholder="Опишите свою ситуацию..."
+                className="w-full bg-transparent border border-gold/20 focus:border-gold/50 outline-none px-4 py-3 font-roboto text-sm text-foreground placeholder:text-foreground/22 transition-colors rounded-sm resize-none" />
+            </div>
+            {cError && <p className="font-roboto text-xs text-red-400 text-center">{cError}</p>}
+            <button type="submit" disabled={cLoading}
+              className="animate-pulse-glow w-full font-roboto text-sm py-4 bg-gold text-background hover:opacity-85 transition-all rounded-sm tracking-[0.18em] uppercase font-medium flex items-center justify-center gap-2 disabled:opacity-60">
+              {cLoading ? <><Icon name="Loader" size={16} className="animate-spin" />Отправка...</> : "Отправить заявку"}
+            </button>
+          </form>
+        )}
       </div>
-      <div className="flex flex-col sm:flex-row justify-center gap-8 mt-10">
+      <div className="flex justify-center gap-10 mt-10">
         {[
-          { icon: "Send",        label: "Telegram",  val: "@keyarcana",                  href: "https://t.me/keyarcana" },
-          { icon: "MessageCircle", label: "VK",      val: "vk.com/club237877156",         href: "https://vk.com/club237877156" },
-          { icon: "Smartphone",  label: "MAX",       val: "MAX Messenger",                href: "#contacts" },
-          { icon: "Phone",       label: "WhatsApp",  val: "+7 (999) 000-00-00",           href: "#contacts" },
+          { icon: "Send",          label: "Telegram", val: "@keyarcana",           href: "https://t.me/keyarcana" },
+          { icon: "MessageCircle", label: "VK",       val: "vk.com/club237877156", href: "https://vk.com/club237877156" },
+          { icon: "Mail",          label: "Email",    val: "key.arcana@mail.ru",   href: "mailto:key.arcana@mail.ru" },
         ].map((c) => (
           <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <Icon name={c.icon} size={15} className="text-gold/50" />
@@ -712,7 +749,8 @@ const Contacts = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 // ─── EMAIL SUBSCRIBE ──────────────────────────────────────────────────────────
 const EmailSubscribe = () => {
