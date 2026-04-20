@@ -13,7 +13,7 @@ def send_email_with_pdf(to_email: str, customer_name: str, card_name: str, card_
 <head><meta charset="UTF-8"><title>Ваш таро-сертификат</title></head>
 <body style="background:#1a0e2e;color:#f0e6c8;font-family:'Georgia',serif;max-width:600px;margin:0 auto;padding:20px;">
   <div style="text-align:center;border-bottom:1px solid #FFCC33;padding-bottom:20px;margin-bottom:30px;">
-    <h1 style="color:#FFCC33;font-size:28px;letter-spacing:4px;">✦ ARCANA ✦</h1>
+    <h1 style="color:#FFCC33;font-size:28px;letter-spacing:4px;">✦ KeyArcana ✦</h1>
     <p style="color:#c9a96e;font-size:13px;letter-spacing:2px;">ИМЕННОЙ ТАРО-СЕРТИФИКАТ</p>
   </div>
 
@@ -34,8 +34,8 @@ def send_email_with_pdf(to_email: str, customer_name: str, card_name: str, card_
   </div>
 
   <div style="text-align:center;padding-top:20px;border-top:1px solid rgba(255,204,51,0.2);">
-    <p style="color:#8a7a9b;font-size:11px;">© ARCANA · Этот сертификат создан специально для вас</p>
-    <p style="color:#8a7a9b;font-size:11px;">Вопросы: <a href="https://t.me/arcana_taro" style="color:#FFCC33;">@arcana_taro</a></p>
+    <p style="color:#8a7a9b;font-size:11px;">© KeyArcana · Этот сертификат создан специально для вас</p>
+    <p style="color:#8a7a9b;font-size:11px;">Вопросы: <a href="https://t.me/keyarcana" style="color:#FFCC33;">@keyarcana</a></p>
   </div>
 </body>
 </html>

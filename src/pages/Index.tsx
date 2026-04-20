@@ -32,11 +32,12 @@ const ARCANA = [
 ];
 
 const TOPICS = [
-  { id: "love",   label: "💞 Любовь",  q: "Что происходит в моих отношениях?" },
-  { id: "money",  label: "💰 Деньги",  q: "Каков мой финансовый путь сейчас?" },
-  { id: "work",   label: "💼 Карьера", q: "Правильный ли я путь выбрал?" },
-  { id: "choice", label: "🔱 Выбор",   q: "Стоит ли мне принять это решение?" },
-  { id: "future", label: "🌠 Будущее", q: "Что ждёт меня впереди?" },
+  { id: "love",    label: "💞 Любовь",    q: "Что происходит в моих отношениях?" },
+  { id: "money",   label: "💰 Деньги",    q: "Каков мой финансовый путь сейчас?" },
+  { id: "work",    label: "💼 Карьера",   q: "Правильный ли я путь выбрал?" },
+  { id: "choice",  label: "🔱 Выбор",     q: "Стоит ли мне принять это решение?" },
+  { id: "future",  label: "🌠 Будущее",   q: "Что ждёт меня впереди?" },
+  { id: "health",  label: "🌿 Здоровье",  q: "Как восстановить силы и гармонию?" },
 ];
 
 const SERVICES_LIST = [
@@ -49,10 +50,18 @@ const SERVICES_LIST = [
 ];
 
 const REVIEWS_LIST = [
-  { name: "★ Клиент из Москвы",           city: "", stars: 5, text: "Сделала расклад перед собеседованием — карта сказала «не бояться». Прошла! Сохранила PDF, перечитываю в трудные моменты.",                         service: "PDF-сертификат"   },
-  { name: "★ Клиент из Санкт-Петербурга", city: "", stars: 5, text: "Подарила подруге сертификат на «Чувства партнёра». Он оказался точным до мурашек. Теперь обе стали постоянными клиентами.",                       service: "Чувства партнёра" },
-  { name: "★ Клиент из Казани",           city: "", stars: 5, text: "Скептик по природе, но расклад на год описал мою ситуацию настолько точно, что я потерял дар речи. Рекомендую всем.",                            service: "Расклад на год"   },
-  { name: "★ Клиент из Екатеринбурга",    city: "", stars: 5, text: "VIP-диагностика изменила моё отношение к ситуации. Получила чёткий план действий. Видео и PDF — на память. Спасибо огромное!",                   service: "VIP-диагностика"  },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Сделала расклад перед собеседованием — карта сказала «не бояться». Прошла! Сохранила PDF, перечитываю в трудные моменты.",                                          service: "PDF-сертификат"   },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Подарила подруге сертификат на «Чувства партнёра». Он оказался точным до мурашек. Теперь обе стали постоянными клиентами.",                                          service: "Чувства партнёра" },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Скептик по природе, но расклад на год описал мою ситуацию настолько точно, что я потерял дар речи. Рекомендую всем.",                                               service: "Расклад на год"   },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "VIP-диагностика изменила моё отношение к ситуации. Получила чёткий план действий. Видео и PDF — на память. Спасибо огромное!",                                      service: "VIP-диагностика"  },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Заказала «Да/Нет» перед важным разговором с мамой. Карта дала именно тот ответ, который я боялась признать. Всё прошло хорошо.",                                    service: "Расклад «Да/Нет»" },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Кельтский крест полностью описал мою ситуацию на работе. Даже детали, о которых я никому не говорила. Была в шоке от точности.",                                    service: "Кельтский крест"  },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Раньше не верила в Таро. Заказала ради интереса — теперь делаю расклад перед каждым важным решением. Это просто работает.",                                          service: "PDF-сертификат"   },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Расклад на год показал тяжёлый период в марте — так и вышло. Зато карты предупредили заранее, и я была готова. Очень ценно.",                                       service: "Расклад на год"   },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Написала в 2 часа ночи в панике — нужен был срочный ответ. Сделала расклад сама, получила PDF. Утром уже знала, что делать.",                                        service: "Расклад «Да/Нет»" },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Подарила себе на день рождения VIP-диагностику. Три часа разбора жизни — это лучший подарок, который я когда-либо делала себе.",                                    service: "VIP-диагностика"  },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Чувства партнёра — просто попадание в десятку. Он молчит, а карты рассказали всё. Теперь понимаю его намного лучше.",                                               service: "Чувства партнёра" },
+  { name: "★ Анонимный отзыв",  city: "", stars: 5, text: "Очень ценю анонимность — никто не знает, что я обращалась. Расклад помог разобраться в ситуации с близким человеком. Деликатно и точно.",                           service: "Кельтский крест"  },
 ];
 
 // ─── STAR FIELD ───────────────────────────────────────────────────────────────
@@ -93,11 +102,11 @@ const Nav = () => {
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-  const links: [string, string][] = [["Расклад","#reading"],["Услуги","#services"],["Отзывы","#reviews"],["Контакты","#contacts"],["Telegram","https://t.me/arcana_taro"]];
+  const links: [string, string][] = [["Расклад","#reading"],["Услуги","#services"],["Отзывы","#reviews"],["Контакты","#contacts"],["Telegram","https://t.me/keyarcana"]];
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "nav-blur py-3" : "py-5"}`}>
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <span className="font-playfair text-2xl font-medium tracking-[0.12em] gold-text">✦ ARCANA</span>
+        <span className="font-playfair text-2xl font-medium tracking-[0.12em] gold-text">✦ KeyArcana</span>
         <div className="hidden md:flex items-center gap-7">
           {links.map(([l, h]) => (
             <a key={h} href={h} className="font-roboto text-xs tracking-[0.2em] uppercase text-foreground/55 hover:text-gold transition-colors">{l}</a>
@@ -300,6 +309,19 @@ const Reading = () => {
           <h2 className="font-playfair text-5xl md:text-6xl font-medium">Вытяни карту</h2>
           <Divider />
           <p className="font-playfair text-lg text-foreground/45 italic mt-3">Сосредоточьтесь на своём вопросе</p>
+          <div className="mt-4 flex flex-wrap justify-center gap-3">
+            {[
+              { icon: "EyeOff", text: "Полная анонимность" },
+              { icon: "Lock",   text: "Без регистрации" },
+              { icon: "Zap",    text: "Ответ за 10 секунд" },
+            ].map(({ icon, text }) => (
+              <div key={text} className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm"
+                style={{ background: "hsla(46,100%,60%,0.07)", border: "1px solid hsla(46,100%,60%,0.18)" }}>
+                <Icon name={icon} size={12} className="text-gold/55" />
+                <span className="font-roboto text-xs text-foreground/50">{text}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Step 1 — Topic */}
@@ -417,7 +439,7 @@ const Reading = () => {
                 </div>
                 <div className="mt-3 pt-3 border-t border-gold/10 flex justify-between">
                   <span className="font-roboto text-xs text-foreground/25 tracking-wider">Совет · Предостережение · Аффирмация</span>
-                  <span className="font-roboto text-xs text-gold/30">✦ ARCANA</span>
+                  <span className="font-roboto text-xs text-gold/30">✦ KeyArcana</span>
                 </div>
               </div>
               <Divider />
@@ -602,6 +624,11 @@ const Reviews = () => (
         <p className="font-playfair text-lg text-foreground/45 italic mt-3">
           Более 2 400 человек уже нашли ответы. Вот что они говорят:
         </p>
+        <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-sm mx-auto"
+          style={{ background: "hsla(46,100%,60%,0.07)", border: "1px solid hsla(46,100%,60%,0.18)" }}>
+          <Icon name="EyeOff" size={12} className="text-gold/55" />
+          <span className="font-roboto text-xs text-foreground/50">Все отзывы публикуются анонимно — с разрешения клиентов</span>
+        </div>
       </div>
       <div className="grid md:grid-cols-2 gap-5">
         {REVIEWS_LIST.map((r) => (
@@ -669,18 +696,18 @@ const Contacts = () => (
       </div>
       <div className="flex flex-col sm:flex-row justify-center gap-8 mt-10">
         {[
-          { icon: "Send",        label: "Telegram",  val: "@arcana_taro" },
-          { icon: "MessageCircle", label: "VK",      val: "vk.com/arcana_taro" },
-          { icon: "Smartphone",  label: "MAX",       val: "MAX Messenger" },
-          { icon: "Phone",       label: "WhatsApp",  val: "+7 (999) 000-00-00" },
+          { icon: "Send",        label: "Telegram",  val: "@keyarcana",                  href: "https://t.me/keyarcana" },
+          { icon: "MessageCircle", label: "VK",      val: "vk.com/club237877156",         href: "https://vk.com/club237877156" },
+          { icon: "Smartphone",  label: "MAX",       val: "MAX Messenger",                href: "#contacts" },
+          { icon: "Phone",       label: "WhatsApp",  val: "+7 (999) 000-00-00",           href: "#contacts" },
         ].map((c) => (
-          <div key={c.label} className="flex items-center gap-3">
+          <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <Icon name={c.icon} size={15} className="text-gold/50" />
             <div>
               <p className="font-roboto text-xs text-foreground/35 tracking-widest uppercase">{c.label}</p>
               <p className="font-roboto text-sm text-foreground/65">{c.val}</p>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -743,7 +770,7 @@ const LegalModal = ({ type, onClose }: { type: "privacy" | "offer"; onClose: () 
             <p><strong className="text-foreground/70">Использование.</strong> Данные используются исключительно для доставки PDF-сертификата и рассылки (при подписке). Третьим лицам не передаются.</p>
             <p><strong className="text-foreground/70">Хранение.</strong> Данные хранятся на защищённых серверах. Вы можете запросить удаление в любой момент, написав нам.</p>
             <p><strong className="text-foreground/70">Рассылка.</strong> Отписаться можно в один клик по ссылке в любом письме.</p>
-            <p><strong className="text-foreground/70">Контакт.</strong> По вопросам конфиденциальности: @arcana_taro в Telegram.</p>
+            <p><strong className="text-foreground/70">Контакт.</strong> По вопросам конфиденциальности: @keyarcana в Telegram.</p>
           </div>
         ) : (
           <div className="font-roboto text-xs text-foreground/55 leading-relaxed space-y-3 mt-4">
@@ -767,7 +794,7 @@ const Footer = () => {
       <footer className="py-10 px-6 border-t border-gold/10" style={{ background: "hsl(240,22%,3%)" }}>
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-            <p className="font-playfair text-xl gold-text font-medium tracking-[0.15em]">✦ ARCANA</p>
+            <p className="font-playfair text-xl gold-text font-medium tracking-[0.15em]">✦ KeyArcana</p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
               <button onClick={() => setModal("privacy")}
                 className="font-roboto text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider underline-offset-2">
@@ -777,7 +804,7 @@ const Footer = () => {
                 className="font-roboto text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider underline-offset-2">
                 Публичная оферта
               </button>
-              <a href="https://t.me/arcana_taro" target="_blank" rel="noopener noreferrer"
+              <a href="https://t.me/keyarcana" target="_blank" rel="noopener noreferrer"
                 className="font-roboto text-xs text-foreground/30 hover:text-gold/60 transition-colors tracking-wider flex items-center gap-1">
                 <Icon name="Send" size={11} />
                 Telegram-канал
@@ -786,7 +813,7 @@ const Footer = () => {
           </div>
           <Divider slim />
           <p className="font-roboto text-xs text-foreground/20 text-center mt-4 leading-relaxed tracking-wider">
-            © {new Date().getFullYear()} ARCANA · Все права защищены · Для лиц 18+<br />
+            © {new Date().getFullYear()} KeyArcana · Все права защищены · Для лиц 18+<br />
             Услуги носят исключительно развлекательный и рекомендательный характер.
             Результаты раскладов не являются гарантией наступления каких-либо событий.
           </p>
