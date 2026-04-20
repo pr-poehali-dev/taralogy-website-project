@@ -12,6 +12,15 @@
       "path": "/",
       "body": {"name": "Test"},
       "expectedStatus": 400
+    },
+    {
+      "name": "Send real email",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Тест", "email": "key.arcana@mail.ru", "service": "Проверка", "message": "Это тестовая заявка с сайта KeyArcana"},
+      "expectedStatus": 200,
+      "expectedBody": {"ok": true},
+      "bodyMatcher": "partial"
     }
   ]
 }
