@@ -744,7 +744,7 @@ const Contacts = () => {
       <div className="flex justify-center gap-10 mt-10">
         {[
           { icon: "Send",          label: "Telegram", val: "@keyarcana",           href: "https://t.me/keyarcana" },
-          { icon: "MessageCircle", label: "VK",       val: "vk.com/club237877156", href: "https://vk.com/club237877156" },
+          { icon: "MessageCircle", label: "VK",       val: "vk.com/keyarcana", href: "https://vk.com/keyarcana" },
           { icon: "Mail",          label: "Email",    val: "key.arcana@mail.ru",   href: "mailto:key.arcana@mail.ru" },
         ].map((c) => (
           <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
