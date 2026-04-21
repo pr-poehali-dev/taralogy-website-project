@@ -137,6 +137,15 @@ const Hero = () => (
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.07]"
         style={{ background: "radial-gradient(circle, hsl(270,50%,40%) 0%, transparent 65%)" }} />
     </div>
+    {/* Hero character image */}
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <img
+        src="https://cdn.poehali.dev/projects/6a37c80e-c75c-4233-8378-6241b16a3843/bucket/6b9087d0-2546-435f-bda5-485762824a6e.jpg"
+        alt=""
+        className="absolute right-0 top-0 h-full w-auto max-w-[55%] object-cover object-top opacity-30"
+        style={{ maskImage: "linear-gradient(to left, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 80%)", WebkitMaskImage: "linear-gradient(to left, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, transparent 80%)" }}
+      />
+    </div>
     {/* Spinning mandala */}
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] animate-spin-slow opacity-[0.04] pointer-events-none select-none">
       <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
